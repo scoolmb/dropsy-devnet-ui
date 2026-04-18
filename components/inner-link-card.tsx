@@ -36,7 +36,7 @@ const LinkCard = ({
 }: LinkCardProps) => {
   const variantClasses = {
     default:
-      "bg-linear-to-br from-gray-500/50 to-white dark:from-black/50 dark:to-black",
+      "bg-linear-to-br from-white-100/50 to-white dark:from-black/50 dark:to-black",
     primary:
       "bg-gradient-to-br from-blue-900/30 to-blue-800/20 border-blue-700/50",
     secondary:
@@ -53,7 +53,7 @@ const LinkCard = ({
   };
 
   const iconColors = {
-    default: "text-gray-400",
+    default: "text-gray-800",
     primary: "text-blue-400",
     secondary: "text-purple-400",
     accent: "text-emerald-400",
@@ -144,7 +144,7 @@ const LinkCard = ({
                   <Icon size={40} />
                 </div>
               )}
-              <CardTitle className="text-white font-semibold">
+              <CardTitle className="dark:text-white font-semibold">
                 {title}
               </CardTitle>
             </div>

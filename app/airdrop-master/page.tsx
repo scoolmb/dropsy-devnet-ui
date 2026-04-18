@@ -28,7 +28,7 @@ export default function CreateAirdropMasterPage() {
               within your ecosystem
             </p>
           </div>
-          <CardContent className=" my-4 flex items-center justify-between p-6 border rounded-xl bg-linear-to-r from-blue-50 to-indigo-50 dark:from-blue-900/10 dark:to-indigo-900/10">
+          <CardContent className=" my-4 flex items-center justify-between p-6 border rounded-xl bg-linear-to-r from-white-50 to-indigo-50 dark:from-blue-900/10 dark:to-indigo-900/10">
             <div className="flex items-center justify-between gap-3">
               <div>
                 <h4 className="font-medium text-blue-800 dark:text-blue-300 mb-1">
@@ -37,12 +37,14 @@ export default function CreateAirdropMasterPage() {
                 <ul className="text-sm text-blue-700 dark:text-blue-400 space-y-1">
                   <li>• Each master controls its own ecosystem of airdrops</li>
                   <li>
-                    • Masters earn fees from all operations under their domain
+                    • Airdrop Master Creator earn fees from all operations under
+                    their domain
                   </li>
                   <li>
                     • Partners can run independent monetized airdrop platforms
                   </li>
                   <li>• Fully decentralized and modular architecture</li>
+                  <li>• Fees sent directly to the Treasury address</li>
                 </ul>
               </div>
             </div>
