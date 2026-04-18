@@ -1,6 +1,6 @@
 # 🪂 Dropsy Devnet Playground
 
-A developer-focused UI for testing token distribution systems on Solana Devnet.
+A developer-focused UI for testing Dropsy token distribution Layer on Solana Devnet.
 
 This interface allows you to experiment with airdrops, merkle-based claims, and advanced distribution logic before deploying to mainnet.
 
@@ -16,14 +16,14 @@ This interface allows you to experiment with airdrops, merkle-based claims, and 
 
 ## ⚡ Features
 
-- **Create Airdrops**
-  - Distribute tokens to multiple wallets
-  - Configure parameters and schedules
-
-- **Airdrop Master**
+- **Create Airdrop Master**
   - Advanced configuration layer
   - Fee management (claim / delegate)
   - Designed for scalable distribution systems
+
+- **Create Airdrop**
+  - Distribute tokens to multiple wallets
+  - Configure parameters and schedules
 
 - **Merkle Tree Builder**
   - Generate merkle roots for claim-based drops

@@ -60,7 +60,7 @@ const LinkCard = ({
   };
 
   return (
-    <Link href={"/create/" + link}>
+    <Link href={link}>
       <Card
         className={`
         relative
