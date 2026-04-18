@@ -1,27 +1,16 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { AuthWalletGate } from "@/components/auth-gate";
 import { Rocket } from "lucide-react";
 import AirdropMasterForm from "@/components/airdrop-master/Form";
 import { CardContent } from "@/components/ui/card";
 
 export default function CreateAirdropMasterPage() {
-  const [discountData, setDiscountData] = useState<Record<
+  /*const [discountData, setDiscountData] = useState<Record<
     string,
     unknown
-  > | null>(null);
-
-  useEffect(() => {
-    const fetchDiscounts = async () => {
-      const res = await fetch("/discount.json");
-      const data = await res.json();
-      setDiscountData(data);
-      console.log("Discount data loaded:", data);
-    };
-
-    fetchDiscounts();
-  }, []);
+  > | null>(null);*/
 
   return (
     <div className="p-6">
@@ -60,12 +49,7 @@ export default function CreateAirdropMasterPage() {
           </CardContent>
 
           <AuthWalletGate>
-            {(account) => (
-              <AirdropMasterForm
-                account={account}
-                discountData={discountData}
-              />
-            )}
+            {(account) => <AirdropMasterForm account={account} />}
           </AuthWalletGate>
         </div>
       </div>

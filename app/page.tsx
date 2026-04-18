@@ -24,7 +24,7 @@ const Page = () => {
 
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <LinkCard
+          {/*<LinkCard
             title="Create Airdrop"
             description="Distribute tokens to multiple addresses with flexible parameters and scheduling"
             icon={Rocket}
@@ -32,7 +32,7 @@ const Page = () => {
             link="/airdrop/"
             tag="Standard"
             glow={true}
-          />
+          />*/}
 
           <LinkCard
             link="/airdrop-master/"
@@ -44,7 +44,7 @@ const Page = () => {
             glow={true}
           />
 
-          <LinkCard
+          {/*<LinkCard
             link="/merkle/"
             title="Merkle Tree Builder"
             description="Generate and manage merkle roots for scalable and verifiable claims"
@@ -52,7 +52,7 @@ const Page = () => {
             variant="default"
             tag="Utility"
             glow={true}
-          />
+          />*/}
         </div>
 
         {/* Bottom note */}

@@ -140,6 +140,7 @@ export function useTransactionBuilder() {
         return getBase58Decoder().decode(sigBytes) as Signature;
       } catch (error) {
         console.error("Transaction failed", error);
+        throw error;
       }
     },
 
@@ -156,9 +157,9 @@ export function useTransactionBuilder() {
       });
     },
 
-    onError(thrown) {
+    onError(error) {
       toast.error("Transaction failed", {
-        description: error.name,
+        description: error.message,
       });
     },
   });

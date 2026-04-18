@@ -1,19 +1,17 @@
 import { CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Zap, DollarSign, Wallet2, Wallet2Icon } from "lucide-react";
+import { Zap, DollarSign } from "lucide-react";
 import { UseFormRegister } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 
 interface AirdropMasterConfigProps {
   register: UseFormRegister<{
     treasury: string;
-    airdropCreateFee: string | null;
-    airdropUpdateFee: string | null;
-    bitmapCreateFee: string | null;
-    advancedConfig: {
-      claimFee: string | null;
-      delegateFee: string | null;
-    };
+    airdropCreateFee: number | null;
+    airdropUpdateFee: number | null;
+    bitmapCreateFee: number | null;
+    claimFee: number | null;
+    delegateFee: number | null;
   }>;
 }
 
@@ -103,7 +101,7 @@ export function AirdropMasterConfig({ register }: AirdropMasterConfigProps) {
                 Claim Fee :
               </Label>
               <Input
-                {...register("advancedConfig.claimFee")}
+                {...register("claimFee")}
                 //label="Claiming Fee"
                 placeholder="ex: 0.01"
                 type="number"
@@ -133,7 +131,7 @@ export function AirdropMasterConfig({ register }: AirdropMasterConfigProps) {
               </Label>
               <Input
                 //label="Delegation Fee"
-                {...register("advancedConfig.delegateFee")}
+                {...register("delegateFee")}
                 placeholder="ex: 0.01"
                 type="number"
                 step="0.00001"

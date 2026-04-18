@@ -5,6 +5,8 @@ import { SolanaProvider } from "./solana-provider";
 import { ClientProviders } from "./query-provider";
 //import Header from "../global/Header";
 import { Toaster } from "sonner";
+import Header from "@/components/Header";
+import { ThemeProvider } from "./theme-provider";
 
 export function AppProviders({
   children,
@@ -13,16 +15,24 @@ export function AppProviders({
 }>) {
   return (
     <ClientProviders>
-      <SolanaProvider>
-        <div className="min-h-screen flex flex-col">
-          <Toaster />
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
+        <SolanaProvider>
+          <div className="min-h-screen flex flex-col">
+            <Toaster />
+            <Header />
 
-          <main className="flex-1 pt-16">
-            <div className="absolute h-full inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.05)_1px,transparent_0)] bg-[size:20px_20px] pointer-events-none" />
-            {children}
-          </main>
-        </div>
-      </SolanaProvider>
+            <main className="flex-1 pt-16">
+              <div className="absolute h-full inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.05)_1px,transparent_0)] bg-[size:20px_20px] pointer-events-none" />
+              {children}
+            </main>
+          </div>
+        </SolanaProvider>
+      </ThemeProvider>
     </ClientProviders>
   );
 }

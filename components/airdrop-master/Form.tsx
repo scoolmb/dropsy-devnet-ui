@@ -8,27 +8,8 @@ import { AirdropMasterHeader } from "./Header";
 import { DeployAirdropMasterCTA } from "./deploy-cta";
 import { AirdropMasterConfig } from "./Basic-Setting";
 
-const AirdropMasterForm = ({
-  account,
-  discountData,
-}: {
-  account: UiWalletAccount;
-  discountData: any;
-}) => {
-  const { form, onSubmit } = useAirdropMasterForm(account, discountData);
-
-  // Get the wallet public key in Base58
-  const walletAddress = account.address;
-
-  // Find the proof entry for this wallet
-  const discountEntry = discountData?.proofs?.find(
-    (p: any) => p.address === walletAddress,
-  );
-
-  // Convert proof from hex to Uint8Array for Anchor
-  const discountProof: Uint8Array[] | undefined = discountEntry?.proof?.map(
-    (hex: string) => Uint8Array.from(Buffer.from(hex, "hex")),
-  );
+const AirdropMasterForm = ({ account }: { account: UiWalletAccount }) => {
+  const { form, onSubmit } = useAirdropMasterForm(account);
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
