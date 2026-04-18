@@ -38,12 +38,12 @@ export function AirdropMasterConfig({ register }: AirdropMasterConfigProps) {
           <div className="space-y-4">
             <div className="space-y-2">
               <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                treasury :
+                Treasury : Fee collection address
               </Label>
               <Input
                 //label="Master Treasury"
                 {...register("treasury")}
-                placeholder="ex: AxDNTbaSB1VQMszvnNwbqMmxM1xq8mMQLr7MDxoLKVAk"
+                placeholder="Your fee collection wallet address"
                 type="text"
                 //icon={<Wallet2Icon className="w-4 h-4" />}
               />

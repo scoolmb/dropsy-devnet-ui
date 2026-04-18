@@ -50,7 +50,7 @@ export function AuthWalletGate({ children, fallback }: AuthGateProps) {
     return (
       <>
         {fallback ?? (
-          <Card>
+          <Card className="flex justify-center items-center-safe">
             <CardTitle>Wallet Required</CardTitle>
             <CardDescription>
               Connect your wallet to access this feature
