@@ -44,7 +44,7 @@ const Page = () => {
             glow={true}
           />
 
-          {/*<LinkCard
+          <LinkCard
             link="/merkle/"
             title="Merkle Tree Builder"
             description="Generate and manage merkle roots for scalable and verifiable claims"
@@ -52,7 +52,7 @@ const Page = () => {
             variant="default"
             tag="Utility"
             glow={true}
-          />*/}
+          />
         </div>
 
         {/* Bottom note */}
