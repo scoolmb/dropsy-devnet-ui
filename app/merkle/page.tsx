@@ -21,8 +21,8 @@ export default function MerklePage() {
         {/* Cards Grid */}
         <ClaimMerkle />
         {/* Info Section */}
-        <div className="mt-12 rounded-xl border border-gray-800 bg-gray-900/30 p-6">
-          <h3 className="mb-4 text-lg font-semibold text-white">
+        <div className="mt-12 rounded-xl border border-gray-800 dark:bg-gray-900/30 p-6">
+          <h3 className="mb-4 text-lg font-semibold dark:text-white">
             How It Works
           </h3>
           <div className="grid gap-4 md:grid-cols-3">

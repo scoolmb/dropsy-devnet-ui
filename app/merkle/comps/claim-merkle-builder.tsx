@@ -115,7 +115,7 @@ export default function ClaimMerkle() {
   };
 
   return (
-    <div className="min-h-screen  p-6">
+    <div className="min-h-screen p-6">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
 
@@ -146,14 +146,14 @@ export default function ClaimMerkle() {
         )}
 
         {/* Info Section */}
-        <div className="mt-12 p-6 bg-gray-800/30 border border-gray-700 rounded-xl">
-          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <FileText className="h-5 w-5 text-gray-400" />
+        <div className="mt-12 p-6 bg-white dark:bg-gray-500/30  border border-gray-700 rounded-xl">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+            <FileText className="h-5 w-5 text-gray-500 dark:text-white" />
             CSV Format
           </h3>
           <div className="space-y-3">
-            <div className="bg-gray-900/50 p-4 rounded-lg">
-              <code className="text-sm text-gray-300 font-mono">
+            <div className="bg-white dark:bg-gray-500/30  p-4 rounded-lg">
+              <code className="text-sm text-gray-900 dark:text-white font-mono">
                 wallet,amount
                 <br />
                 7f8abc...xyz,1
@@ -163,7 +163,7 @@ export default function ClaimMerkle() {
                 ...
               </code>
             </div>
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-gray-900 dark:text-white">
               Each line must contain a wallet address and amount separated by a
               comma. Header row is optional. Example: wallet,amount
             </p>
@@ -216,7 +216,7 @@ function UploadSection({
         className={`border-2 border-dashed rounded-2xl p-12 text-center transition-all ${
           dragActive
             ? "border-blue-500 bg-blue-500/10"
-            : "border-gray-700 bg-gray-800/30 hover:border-gray-600 hover:bg-gray-800/50"
+            : "border-gray-700 bg-white-500/30 dark:bg-gray-500/30 hover:border-gray-600 hover:bg-gray-800/50"
         }`}
         onDragEnter={handleDrag}
         onDragLeave={handleDrag}
@@ -313,7 +313,7 @@ function ResultsSection({
     <div className="space-y-8">
       {/* Summary Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-gray-800/30 border border-gray-700 rounded-xl p-5">
+        <div className="bg-white dark:bg-gray-500/30 border border-gray-700 rounded-xl p-5">
           <div className="flex items-center gap-3 mb-3">
             <Users className="h-5 w-5 text-blue-400" />
             <div className="text-sm text-gray-400">Total Addresses</div>
@@ -323,7 +323,7 @@ function ResultsSection({
           </div>
         </div>
 
-        <div className="bg-gray-800/30 border border-gray-700 rounded-xl p-5">
+        <div className="bg-white dark:bg-gray-500/30 border border-gray-700 rounded-xl p-5">
           <div className="flex items-center gap-3 mb-3">
             <Shield className="h-5 w-5 text-green-400" />
             <div className="text-sm text-gray-400">Proofs Generated</div>
@@ -333,7 +333,7 @@ function ResultsSection({
           </div>
         </div>
 
-        <div className="bg-gray-800/30 border border-gray-700 rounded-xl p-5">
+        <div className="bg-white dark:bg-gray-500/30  border border-gray-700 rounded-xl p-5">
           <div className="flex items-center gap-3 mb-3">
             <FileText className="h-5 w-5 text-purple-400" />
             <div className="text-sm text-gray-400">Tree Height</div>
@@ -345,7 +345,7 @@ function ResultsSection({
       </div>
 
       {/* Merkle Root */}
-      <div className="bg-gray-800/30 border border-gray-700 rounded-xl p-6">
+      <div className="bg-white dark:bg-gray-500/30  border border-gray-700 rounded-xl p-6">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-white">Merkle Root</h3>
           <button
@@ -407,7 +407,7 @@ function ResultsSection({
             {proofs.slice(0, 5).map((proof, index) => (
               <div
                 key={index}
-                className="bg-gray-900/50 border border-gray-800 rounded-lg p-4"
+                className="bg-white dark:bg-gray-500/30  border border-gray-800 rounded-lg p-4"
               >
                 <div className="flex items-start justify-between mb-2">
                   <div className="text-sm text-gray-400">
