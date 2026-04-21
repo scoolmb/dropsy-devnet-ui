@@ -60,7 +60,7 @@ endsAt: data.endsAt
   ? BigInt(new Date(data.endsAt).getTime() / 1000)
   : null,
 
-        version:null, // Number(data.version),
+        version: null, // Number(data.version),
         mutable: null, //Number(data.mutable),
         delegateAuthority: null, // address(data.delegateAuthority),
         delegatePermissions: null, // Number(data.delegatePermissions),

@@ -3,6 +3,7 @@ import { solanaAddressSchema } from "./airdrop-master";
 
 
 export const airdropFormSchema = z.object({
+  airdropMaster: solanaAddressSchema,
   mint: solanaAddressSchema,
   merkleRoot: z
   .string()

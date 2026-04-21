@@ -15,6 +15,8 @@ import CardWrapper from "@/components/card/card-wrapper";
 import { MasterConfig } from "./Master-Config";
 import { AirdropMaster } from "@dropsy/airdrop";
 import { Address } from "gill";
+import Link from "next/link";
+import { Button } from "../ui/button";
 
 const AirdropForm = ({
   account,
@@ -44,6 +46,30 @@ const AirdropForm = ({
             airdropMasterAddress={airdropMasterAddress}
           />*/}
           <CardContent className="space-y-6">
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                Master Address :{" "}
+                {form.formState.errors.mint && (
+                  <p className="text-red-500 text-sm">
+                    {form.formState.errors.mint.message}
+                  </p>
+                )}
+              </Label>
+
+              <DropsyInput
+                label="Master Address"
+                icon={<Key className="w-4 h-4" />}
+                {...register("airdropMaster")}
+                placeholder="Enter master address"
+                //error={errors.mint?.message}
+                readAbout={{
+                  title: "Airdrop Master Address",
+                  description:
+                    "Each Airdrop Requires an Airdrop Master program to be deployed. Enter the address of an existing master or create your own",
+                }}
+              />
+            </div>
+            <Button>Create Airdrop Master</Button>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">
