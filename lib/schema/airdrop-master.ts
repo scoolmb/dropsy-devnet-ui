@@ -1,16 +1,15 @@
 import { isAddress } from "@solana/kit";
 import * as z from "zod";
 
-// This keeps treasury as string type, but validates it's a valid Solana address
-const solanaAddressSchema = z
+export const solanaAddressSchema = z
   .string()
   .refine((val) => isAddress(val), {
     message: "Invalid Solana address",
   })
-  .transform((val) => val.toString()); // Ensure it remains a string
+  .transform((val) => val.toString()); 
 
 export const airdropMasterSchema = z.object({
-    treasury: solanaAddressSchema, // This will be string type, not Address
+    treasury: solanaAddressSchema, 
     airdropCreateFee: z.number().nullable(),
     airdropUpdateFee: z.number().nullable(),
     bitmapCreateFee: z.number().nullable(),

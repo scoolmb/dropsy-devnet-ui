@@ -1,7 +1,6 @@
 import React from "react";
 import { Card } from "@/components/ui/card";
 //import { Separator } from "@/components/ui/separator";
-import { DollarSign, Lock, Settings } from "lucide-react";
 import { UiWalletAccount } from "@wallet-standard/react";
 import { useAirdropMasterForm } from "./useAirdropMasterForm";
 import { AirdropMasterHeader } from "./Header";

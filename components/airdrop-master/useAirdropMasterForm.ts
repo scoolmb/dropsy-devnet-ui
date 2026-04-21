@@ -6,9 +6,8 @@ import { useWalletAccountTransactionSendingSigner } from "@solana/react";
 import { UiWalletAccount } from "@wallet-standard/react";
 import { address } from "gill";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { AirdropMasterFormValues, airdropMasterSchema } from "./schema";
+import { AirdropMasterFormValues, airdropMasterSchema } from "@/lib/schema/airdrop-master";
 import { fromUiAmount } from "@/lib/utils";
-//import { useCreateAirdropConfig } from "@/features/master/use-create-airdrop-master";
 
 export function useAirdropMasterForm(account: UiWalletAccount) {
     const { chain } = useSolana();
@@ -16,13 +15,11 @@ export function useAirdropMasterForm(account: UiWalletAccount) {
     const { mutateAsync: createAirdropMaster } = useCreateAirdropMaster();
     //const { mutateAsync: createAirdropConfig } = useCreateAirdropConfig();
     const { mutateAsync: sendTx } = useTransactionBuilder();
-  // Convert proof from hex to Uint8Array for Ancho
 
     const form = useForm<AirdropMasterFormValues>({
         resolver: zodResolver(airdropMasterSchema),
         defaultValues: {
             treasury: address("AxDNTbaSB1VQMszvnNwbqMmxM1xq8mMQLr7MDxoLKVAk"),
-            //merkleRoot: null,
             airdropCreateFee: null,
             airdropUpdateFee: null,
             bitmapCreateFee: null,
