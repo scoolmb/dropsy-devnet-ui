@@ -2,7 +2,7 @@ import { useSolana } from "@/lib/context/solana-provider";
 import { useFetchAirdropMaster } from "@/features/airdrop-master/use-get-airdrop-master";
 import { address, isAddress } from "gill";
 import React, { useEffect } from "react";
-import { FeeStructure } from "./fee-structure";
+//import { FeeStructure } from "./fee-structure";
 import { AirdropMaster } from "@dropsy/airdrop";
 
 const AirdropMasterOverview = ({
@@ -34,7 +34,11 @@ const AirdropMasterOverview = ({
   if (error || !data || !isAddress(id)) {
     return <h1>{"Error loading this airdrop master " + error?.message} </h1>;
   }
-  return <FeeStructure fees={data.data} />;
+  return (
+    <div>
+      <h1>Hi Master</h1>
+    </div>
+  );
 };
 
 export default AirdropMasterOverview;

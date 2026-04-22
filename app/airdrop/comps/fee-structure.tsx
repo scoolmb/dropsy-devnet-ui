@@ -7,6 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Coins, DollarSign } from "lucide-react";
+/*
 import FeeItem from "@/components/card/fee-item";
 
 interface FeeStructureProps {
@@ -74,3 +75,4 @@ export function FeeStructure({ fees }: FeeStructureProps) {
     </Card>
   );
 }
+*/
