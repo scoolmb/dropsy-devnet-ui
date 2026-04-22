@@ -4,9 +4,14 @@ import { Rocket } from "lucide-react";
 type Props = {
   isSubmitting: boolean;
   title?: string;
+  loadingTitle?: string;
 };
 
-export const DeployAirdropMasterCTA = ({ isSubmitting, title }: Props) => {
+export const DeployAirdropMasterCTA = ({
+  isSubmitting,
+  title,
+  loadingTitle,
+}: Props) => {
   return (
     <Button
       type="submit"
@@ -16,7 +21,7 @@ export const DeployAirdropMasterCTA = ({ isSubmitting, title }: Props) => {
       {isSubmitting ? (
         <>
           <div className="mr-2 h-4 w-4 animate-spin rounded-full border-b-2 border-white" />
-          Deploying Airdrop Master...
+          {loadingTitle ? loadingTitle : "Deploying Airdrop Master..."}
         </>
       ) : (
         <>
