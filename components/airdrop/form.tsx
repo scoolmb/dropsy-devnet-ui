@@ -12,22 +12,8 @@ import DropsyInput from "@/components/input/dropsy-input";
 import { DeployAirdropMasterCTA } from "../airdrop-master/deploy-cta";
 import { Label } from "@/components/ui/label";
 import CardWrapper from "@/components/card/card-wrapper";
-import { MasterConfig } from "./Master-Config";
-import { AirdropMaster } from "@dropsy/airdrop";
-import { Address } from "gill";
-import Link from "next/link";
-import { Button } from "../ui/button";
-import ClaimMapForm from "../claim-map/claim-map";
 
-const AirdropForm = ({
-  account,
-  airdropMaster,
-  airdropMasterAddress,
-}: {
-  account: UiWalletAccount;
-  airdropMaster?: AirdropMaster;
-  airdropMasterAddress?: Address;
-}) => {
+const AirdropForm = ({ account }: { account: UiWalletAccount }) => {
   const { form, onSubmit } = useAirdropForm(account);
   const register = form.register;
 
