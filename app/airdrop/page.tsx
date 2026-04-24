@@ -1,19 +1,9 @@
 "use client";
-
+import React from "react";
 import AirdropForm from "@/components/airdrop/form";
 import { AuthWalletGate } from "@/components/auth-gate";
 
-import React, { useState } from "react";
-//import AirdropMasterOverview from "./comps/airdropMaster";
-import { AirdropMaster } from "@dropsy/airdrop";
-
 const Page = () => {
-  //const searchParams = useSearchParams();
-  // const master = searchParams.get("master");
-  const [airdropMaster, setAirdropMaster] = useState<AirdropMaster | undefined>(
-    undefined,
-  );
-
   return (
     <div className="p-6">
       {/*master && (
@@ -23,9 +13,7 @@ const Page = () => {
         />
       )*/}
       <AuthWalletGate>
-        {(account) => (
-          <AirdropForm account={account} airdropMaster={airdropMaster} />
-        )}
+        {(account) => <AirdropForm account={account} />}
       </AuthWalletGate>
     </div>
   );
