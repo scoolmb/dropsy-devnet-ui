@@ -17,6 +17,7 @@ import { AirdropMaster } from "@dropsy/airdrop";
 import { Address } from "gill";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import ClaimMapForm from "../claim-map/claim-map";
 
 const AirdropForm = ({
   account,

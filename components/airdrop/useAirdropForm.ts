@@ -7,8 +7,9 @@ import { address, ReadonlyUint8Array } from "gill";
 import { useForm } from "react-hook-form";
 import { airdropFormSchema, AirdropFormValues } from "../../lib/schema/airdrop";
 import { useCreateAirdrop } from "@/features/airdrop/use-create-airdrop";
-import { DROPSY_TREASURY_ADDRESS } from "@/lib/constant";
+import { DROPSY_TREASURY_ADDRESS } from "@/lib/constants";
 import { toast } from "sonner";
+import { CreateBitmapAsyncInput, getCreateBitmapInstructionAsync } from "@dropsy/airdrop";
 
 export function useAirdropForm(account: UiWalletAccount) {
     const { chain } = useSolana();
@@ -66,6 +67,17 @@ endsAt: data.endsAt
         delegatePermissions: null, // Number(data.delegatePermissions),
         authority: signer,
       });
+      const claimMapdata: CreateBitmapAsyncInput = {
+      mint: address(data.mint),
+      treasury: address(AIRDROP_MASTER_TREASURY),
+      protocolTreasury: DROPSY_TREASURY_ADDRESS,
+      masterCreator: address(AIRDROP_MASTER_CREATOR),
+      id: 0,
+      total: 5000,
+      authority: signer,
+    };
+    const createAirdropIx = await getCreateBitmapInstructionAsync(claimMapdata);
+    instructions.push(createAirdropIx);
 
         return sendTx({ instructions, signer });
     };

@@ -2,7 +2,6 @@
 
 import AirdropForm from "@/components/airdrop/form";
 import { AuthWalletGate } from "@/components/auth-gate";
-import { useSearchParams } from "next/navigation";
 
 import React, { useState } from "react";
 //import AirdropMasterOverview from "./comps/airdropMaster";
