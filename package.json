@@ -11,6 +11,7 @@
   "dependencies": {
     "@dropsy/airdrop": "^0.3.0",
     "@hookform/resolvers": "^5.2.2",
+    "@solana-program/token": "^0.13.0",
     "@solana/kit": "^6.8.0",
     "@solana/react": "^6.8.0",
     "@tanstack/react-query": "^5.99.0",

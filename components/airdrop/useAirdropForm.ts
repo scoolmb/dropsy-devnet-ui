@@ -9,8 +9,11 @@ import { airdropFormSchema, AirdropFormValues } from "../../lib/schema/airdrop";
 import { useCreateAirdrop } from "@/features/airdrop/use-create-airdrop";
 import { DROPSY_TREASURY_ADDRESS } from "@/lib/constants";
 import { toast } from "sonner";
-import { CreateBitmapAsyncInput, getCreateBitmapInstructionAsync } from "@dropsy/airdrop";
-
+import { CreateBitmapAsyncInput, DepositTokensAsyncInput, getCreateBitmapInstructionAsync, getDepositTokensInstructionAsync } from "@dropsy/airdrop";
+import {
+  findAssociatedTokenPda,
+  TOKEN_PROGRAM_ADDRESS,
+} from "@solana-program/token";
 export function useAirdropForm(account: UiWalletAccount) {
     const { chain } = useSolana();
     const signer = useWalletAccountTransactionSendingSigner(account, chain);
@@ -76,8 +79,21 @@ endsAt: data.endsAt
       total: 5000,
       authority: signer,
     };
-    const createAirdropIx = await getCreateBitmapInstructionAsync(claimMapdata);
-    instructions.push(createAirdropIx);
+    const [sourceTokenAccount, _sourceATABump] = await findAssociatedTokenPda({
+      owner: signer.address,
+      mint: address(data.mint),
+      tokenProgram: TOKEN_PROGRAM_ADDRESS,
+    });
+    const depositData: DepositTokensAsyncInput = {
+      mint: address(data.mint),
+      sourceTokenAccount,
+      amount: 500000000000,
+      authority: signer,
+    };
+    const createBitmapIx = await getCreateBitmapInstructionAsync(claimMapdata);
+
+    const createDepositIx = await getDepositTokensInstructionAsync(depositData);
+    instructions.push(createBitmapIx, createDepositIx);
 
         return sendTx({ instructions, signer });
     };
