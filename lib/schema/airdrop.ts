@@ -5,7 +5,7 @@ import { solanaAddressSchema } from "./airdrop-master";
 export const airdropFormSchema = z.object({
   //airdropMaster: solanaAddressSchema,
   mint: solanaAddressSchema,
-  amount: z.string().nullable().optional(),
+  amount: z.number().nullable().optional(),
   merkleRoot: z
   .string()
   .regex(/^[0-9a-fA-F]{64}$/, "Merkle root must be 32-byte hex"),
