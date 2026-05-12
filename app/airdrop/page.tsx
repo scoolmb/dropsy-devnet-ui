@@ -12,6 +12,7 @@ const Page = () => {
           setAirdropMaster={setAirdropMaster}
         />
       )*/}
+
       <AuthWalletGate>
         {(account) => <AirdropForm account={account} />}
       </AuthWalletGate>

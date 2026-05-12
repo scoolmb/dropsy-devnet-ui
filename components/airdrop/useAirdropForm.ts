@@ -3,7 +3,7 @@ import { useTransactionBuilder } from "@/features/solana/use-build-sign-transact
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useWalletAccountTransactionSendingSigner } from "@solana/react";
 import { UiWalletAccount } from "@wallet-standard/react";
-import { address, ReadonlyUint8Array } from "gill";
+import { address, lamportsToSol, ReadonlyUint8Array } from "gill";
 import { useForm } from "react-hook-form";
 import { airdropFormSchema, AirdropFormValues } from "../../lib/schema/airdrop";
 import { useCreateAirdrop } from "@/features/airdrop/use-create-airdrop";
@@ -14,8 +14,10 @@ import {
   findAssociatedTokenPda,
   TOKEN_PROGRAM_ADDRESS,
 } from "@solana-program/token";
+import { fetchMint } from "gill/programs";
+import { fromUiAmount } from "@/lib/utils";
 export function useAirdropForm(account: UiWalletAccount) {
-    const { chain } = useSolana();
+    const { chain, rpc } = useSolana();
     const signer = useWalletAccountTransactionSendingSigner(account, chain);
     const { mutateAsync: createAirdrop } = useCreateAirdrop();
     const { mutateAsync: sendTx } = useTransactionBuilder();
@@ -29,6 +31,7 @@ export function useAirdropForm(account: UiWalletAccount) {
         mode: "onChange",
         defaultValues: {
           mint: "",
+          amount: 0,
           merkleRoot: "",
           startsAt: null,
           endsAt: null,
@@ -41,7 +44,11 @@ export function useAirdropForm(account: UiWalletAccount) {
         toast.error("Airdrop Master Not Found")
       return;     
     }
+      const mintAccount = await fetchMint(rpc, address(data.mint));
+      console.log(mintAccount);
 
+      const amountIn = fromUiAmount(Number(data.amount), mintAccount.data.decimals);
+       console.log(amountIn);
         const merkleRootBytes = Uint8Array.from(
         data.merkleRoot
           .replace(/^0x/, "")
@@ -87,7 +94,7 @@ endsAt: data.endsAt
     const depositData: DepositTokensAsyncInput = {
       mint: address(data.mint),
       sourceTokenAccount,
-      amount: 500000000000,
+      amount: data.amount ? BigInt(amountIn) : 0,
       authority: signer,
     };
     const createBitmapIx = await getCreateBitmapInstructionAsync(claimMapdata);

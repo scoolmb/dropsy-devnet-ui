@@ -82,6 +82,29 @@ const AirdropForm = ({ account }: { account: UiWalletAccount }) => {
               </div>
               <div className="space-y-2">
                 <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Amount of Tokens :{" "}
+                  {form.formState.errors.amount && (
+                    <p className="text-red-500 text-sm">
+                      {form.formState.errors.amount.message}
+                    </p>
+                  )}
+                </Label>
+
+                <DropsyInput
+                  label="Amount of Tokens"
+                  icon={<Key className="w-4 h-4" />}
+                  {...register("amount")}
+                  placeholder="Enter amount of tokens"
+                  //error={errors.amount?.message}
+                  readAbout={{
+                    title: "Amount",
+                    description: "The Amount of tokens to be airdropped",
+                  }}
+                  type="number"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   Delegate authority :
                   {form.formState.errors.delegateAuthority && (
                     <p className="text-red-500 text-sm">

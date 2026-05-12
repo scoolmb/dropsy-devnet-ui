@@ -8,6 +8,7 @@ import {
 } from "@wallet-standard/react";
 import { createSolanaRpc, createSolanaRpcSubscriptions } from "@solana/kit";
 import { StandardConnect } from "@wallet-standard/core";
+import { useWalletUi, WalletUiContextValue } from "@wallet-ui/react";
 
 // Create RPC connection
 const RPC_ENDPOINT = "https://api.devnet.solana.com";
@@ -23,12 +24,14 @@ interface SolanaContextState {
   chain: typeof chain;
 
   // Wallet State
+
   wallets: UiWallet[];
   selectedWallet: UiWallet | null;
   selectedAccount: UiWalletAccount | null;
   isConnected: boolean;
 
   // Wallet Actions
+  walletUi: WalletUiContextValue;
   setWalletAndAccount: (
     wallet: UiWallet | null,
     account: UiWalletAccount | null,
@@ -47,6 +50,7 @@ export function useSolana() {
 
 export function SolanaProvider({ children }: { children: React.ReactNode }) {
   const allWallets = useWallets();
+  const walletUi = useWalletUi();
 
   // Filter for Solana wallets only that support signAndSendTransaction
   const wallets = useMemo(() => {
@@ -95,12 +99,13 @@ export function SolanaProvider({ children }: { children: React.ReactNode }) {
 
       // Dynamic wallet values
       wallets,
+      walletUi,
       selectedWallet,
       selectedAccount,
       isConnected,
       setWalletAndAccount,
     }),
-    [wallets, selectedWallet, selectedAccount, isConnected],
+    [wallets, selectedWallet, walletUi, selectedAccount, isConnected],
   );
 
   return (
