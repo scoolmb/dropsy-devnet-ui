@@ -16,10 +16,12 @@ export function useAirdropMasterForm(account: UiWalletAccount) {
     //const { mutateAsync: createAirdropConfig } = useCreateAirdropConfig();
     const { mutateAsync: sendTx } = useTransactionBuilder();
 
+    
+
     const form = useForm<AirdropMasterFormValues>({
         resolver: zodResolver(airdropMasterSchema),
         defaultValues: {
-            treasury: address("AxDNTbaSB1VQMszvnNwbqMmxM1xq8mMQLr7MDxoLKVAk"),
+            treasury: address(signer.address),
             airdropCreateFee: null,
             airdropUpdateFee: null,
             bitmapCreateFee: null,

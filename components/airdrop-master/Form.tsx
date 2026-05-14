@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Card } from "@/components/ui/card";
 //import { Separator } from "@/components/ui/separator";
 import { UiWalletAccount } from "@wallet-standard/react";
@@ -6,14 +6,37 @@ import { useAirdropMasterForm } from "./useAirdropMasterForm";
 import { AirdropMasterHeader } from "./Header";
 import { DeployAirdropMasterCTA } from "./deploy-cta";
 import { AirdropMasterConfig } from "./Basic-Setting";
+import {
+  getAirdropMasterDerivedAddress,
+  getMasterDerivedAddress,
+} from "@/lib/derive";
+import { address } from "@solana/kit";
 
 const AirdropMasterForm = ({ account }: { account: UiWalletAccount }) => {
   const { form, onSubmit } = useAirdropMasterForm(account);
+  const [airdropMasterPda, setAirdropMasterPda] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadPda = async () => {
+      const [pda] = await getAirdropMasterDerivedAddress(
+        address(account.address),
+      );
+
+      setAirdropMasterPda(pda);
+    };
+
+    loadPda();
+  }, [account.address]);
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
       <Card className="bg-linear-to-br p-5 from-white-500/50 to-white dark:from-black/50 dark:to-black backdrop-blur-sm min-h-92">
         <AirdropMasterHeader />
+        {airdropMasterPda && (
+          <div className="text-sm text-muted-foreground">
+            Your Airdrop Master Account Pda : <b>{airdropMasterPda}</b>
+          </div>
+        )}
 
         <AirdropMasterConfig register={form.register} />
         <div className="sticky bottom-0 left-0 right-0 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60 border-t">
