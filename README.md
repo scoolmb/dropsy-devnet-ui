@@ -16,18 +16,34 @@ This interface allows you to experiment with airdrops, merkle-based claims, and 
 
 ## ⚡ Features
 
-- **Create Airdrop Master**
-  - Advanced configuration layer
-  - Fee management (claim / delegate)
-  - Designed for scalable distribution systems
+### **Create Airdrop Master**
 
-- **Create Airdrop**
-  - Distribute tokens to multiple wallets
-  - Configure parameters and schedules
+- Advanced configuration layer
+- Fee management (claim / delegate)
+- Designed for scalable distribution systems
 
-- **Merkle Tree Builder**
-  - Generate merkle roots for claim-based drops
-  - Efficient and verifiable distribution model
+### **Create Airdrop**
+
+- Create an Airdrop account pda and store configs
+- Configure parameters and schedules
+- Deposit Tokens to be airdroped
+- Create the ClaimMap account ( used to track claimed positions and prevent double claim )
+
+### **Merkle Tree Builder**
+
+A utility built with Dropsy to facilitate merkle-based airdrop distribution workflows on Solana.
+
+This tool helps developers efficiently generate all required data for claim-based airdrops.
+
+- Generate the **Merkle Root** required during airdrop account initialization
+- Generate the **Eligibility List** for the airdrop
+- Generate **Merkle Proofs** required during on-chain claim validation
+- Include each wallet’s:
+  - Allocation amount
+  - Claim index
+  - Merkle proof
+
+Designed to simplify scalable and verifiable token distribution systems.
 
 ---
 
