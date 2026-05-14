@@ -40,3 +40,33 @@ This interface allows you to experiment with airdrops, merkle-based claims, and 
   and **@dropsy/airdrop** Token distribution Layer on Solana.
 
 ---
+
+## Run it on Your Machine
+
+### Clone the repository
+
+---bash
+git clone https://github.com/scoolmb/dropsy-devnet-ui.git
+
+---
+
+### Navigate into the project
+
+---bash
+cd dropsy-devnet-ui
+
+---
+
+### Install dependencies
+
+---bash
+npm install
+
+---
+
+### Start the development server
+
+---bash
+npm run dev
+
+---
