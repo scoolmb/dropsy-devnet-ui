@@ -45,28 +45,28 @@ This interface allows you to experiment with airdrops, merkle-based claims, and 
 
 ### Clone the repository
 
----bash
+```bash
 git clone https://github.com/scoolmb/dropsy-devnet-ui.git
 
----
+```
 
 ### Navigate into the project
 
----bash
+```bash
 cd dropsy-devnet-ui
 
----
+```
 
 ### Install dependencies
 
----bash
+```bash
 npm install
 
----
+```
 
 ### Start the development server
 
----bash
+```bash
 npm run dev
 
----
+```
