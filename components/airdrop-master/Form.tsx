@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 //import { Separator } from "@/components/ui/separator";
 import { UiWalletAccount } from "@wallet-standard/react";
@@ -6,10 +6,7 @@ import { useAirdropMasterForm } from "./useAirdropMasterForm";
 import { AirdropMasterHeader } from "./Header";
 import { DeployAirdropMasterCTA } from "./deploy-cta";
 import { AirdropMasterConfig } from "./Basic-Setting";
-import {
-  getAirdropMasterDerivedAddress,
-  getMasterDerivedAddress,
-} from "@/lib/derive";
+import { getAirdropMasterDerivedAddress } from "@/lib/derive";
 import { address } from "@solana/kit";
 
 const AirdropMasterForm = ({ account }: { account: UiWalletAccount }) => {

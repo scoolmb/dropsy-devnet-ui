@@ -3,12 +3,11 @@ import { useTransactionBuilder } from "@/features/solana/use-build-sign-transact
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useWalletAccountTransactionSendingSigner } from "@solana/react";
 import { UiWalletAccount } from "@wallet-standard/react";
-import { address, lamportsToSol, ReadonlyUint8Array } from "gill";
+import { address, ReadonlyUint8Array } from "gill";
 import { useForm } from "react-hook-form";
 import { airdropFormSchema, AirdropFormValues } from "../../lib/schema/airdrop";
 import { useCreateAirdrop } from "@/features/airdrop/use-create-airdrop";
 import { DROPSY_TREASURY_ADDRESS } from "@/lib/constants";
-import {getWithdrawExcessLamportsInstruction} from "@solana-program/token"
 import { toast } from "sonner";
 import { CreateBitmapAsyncInput, DepositTokensAsyncInput, getCreateBitmapInstructionAsync, getDepositTokensInstructionAsync } from "@dropsy/airdrop";
 import {
