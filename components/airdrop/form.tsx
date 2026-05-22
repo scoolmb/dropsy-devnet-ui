@@ -95,12 +95,13 @@ const AirdropForm = ({ account }: { account: UiWalletAccount }) => {
                   icon={<Key className="w-4 h-4" />}
                   {...register("amount")}
                   placeholder="Enter amount of tokens"
+                  type="number"
                   //error={errors.amount?.message}
                   readAbout={{
                     title: "Amount",
                     description: "The Amount of tokens to be airdropped",
                   }}
-                  type="number"
+                  //type="number"
                 />
               </div>
               <div className="space-y-2">

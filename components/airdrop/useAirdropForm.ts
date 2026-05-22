@@ -32,7 +32,7 @@ export function useAirdropForm(account: UiWalletAccount) {
         mode: "onChange",
         defaultValues: {
           mint: "",
-          amount: 0,
+          amount: "",
           merkleRoot: "",
           startsAt: null,
           endsAt: null,
@@ -48,7 +48,7 @@ export function useAirdropForm(account: UiWalletAccount) {
       const mintAccount = await fetchMint(rpc, address(data.mint));
       console.log(mintAccount);
 
-      const amountIn = fromUiAmount(Number(data.amount), mintAccount.data.decimals);
+      const amountIn = fromUiAmount(data.amount, mintAccount.data.decimals);
        console.log(amountIn);
         const merkleRootBytes = Uint8Array.from(
         data.merkleRoot

@@ -5,7 +5,12 @@ import { solanaAddressSchema } from "./airdrop-master";
 export const airdropFormSchema = z.object({
   //airdropMaster: solanaAddressSchema,
   mint: solanaAddressSchema,
-  amount: z.coerce.number(),
+  amount: z.string().refine((val) => {
+    const num = Number(val);
+    return !isNaN(num) && num > 0;
+  }, {
+    message: "Amount must be a positive number",
+  }),
   merkleRoot: z
   .string()
   .regex(/^[0-9a-fA-F]{64}$/, "Merkle root must be 32-byte hex"),

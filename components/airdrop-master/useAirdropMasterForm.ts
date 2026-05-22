@@ -27,7 +27,6 @@ export function useAirdropMasterForm(account: UiWalletAccount) {
             bitmapCreateFee: null,
             claimFee: null,
             delegateFee: null,
-           
         },
     });
 
