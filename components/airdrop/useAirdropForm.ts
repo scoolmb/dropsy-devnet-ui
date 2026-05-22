@@ -42,7 +42,7 @@ export function useAirdropForm(account: UiWalletAccount) {
 
     const onSubmit = async (data: AirdropFormValues) => {
       if(!AIRDROP_MASTER  || !AIRDROP_MASTER_CREATOR || !AIRDROP_MASTER_TREASURY) {
-        toast.error("Airdrop Master Not Found")
+        toast.error("Airdrop Master Not Found, please set airdrop master address, treasury and creator in the .env file");
       return;     
     }
       const mintAccount = await fetchMint(rpc, address(data.mint));
