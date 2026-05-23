@@ -373,8 +373,8 @@ function ResultsSection({
         </div>
 
         <p className="mt-3 text-sm text-gray-400">
-          This root should be stored in your airdrop master for whitelist
-          verification.
+          This root should be stored in your airdrop config during deployement
+          for on-chain eligibility verification.
         </p>
       </div>
 

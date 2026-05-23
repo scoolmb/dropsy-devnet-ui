@@ -1,14 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import {
-  Gift,
-  Download,
-  Copy,
-  Check,
-  FileText,
-  AlertCircle,
-} from "lucide-react";
+import { Gift, Copy, Check, FileText, AlertCircle } from "lucide-react";
 import { isAddress } from "gill";
 
 export default function AirdropBuilder() {
