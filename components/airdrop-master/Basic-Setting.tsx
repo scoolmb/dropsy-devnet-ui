@@ -3,16 +3,10 @@ import { Label } from "@/components/ui/label";
 import { Zap, DollarSign } from "lucide-react";
 import { UseFormRegister } from "react-hook-form";
 import { Input } from "@/components/ui/input";
+import { AirdropMasterValues } from "@/lib/schema/airdrop-master";
 
 interface AirdropMasterConfigProps {
-  register: UseFormRegister<{
-    treasury: string;
-    airdropCreateFee: number | null;
-    airdropUpdateFee: number | null;
-    bitmapCreateFee: number | null;
-    claimFee: number | null;
-    delegateFee: number | null;
-  }>;
+  register: UseFormRegister<AirdropMasterValues>;
 }
 
 export function AirdropMasterConfig({ register }: AirdropMasterConfigProps) {
@@ -56,6 +50,7 @@ export function AirdropMasterConfig({ register }: AirdropMasterConfigProps) {
                 //label="Airdrop Creating Fee"
                 {...register("airdropCreateFee")}
                 placeholder="ex: 0.01"
+                defaultValue={0}
                 type="number"
                 step="0.00001"
                 min="0"
@@ -71,10 +66,10 @@ export function AirdropMasterConfig({ register }: AirdropMasterConfigProps) {
                 //label="CLaimMap Creating Fee"
                 {...register("bitmapCreateFee")}
                 placeholder="ex: 0.01"
+                defaultValue={0}
                 type="number"
                 step="0.00001"
                 min="0"
-                //icon={<span className="text-xs">◎</span>}
               />
             </div>
           </div>
@@ -104,10 +99,10 @@ export function AirdropMasterConfig({ register }: AirdropMasterConfigProps) {
                 {...register("claimFee")}
                 //label="Claiming Fee"
                 placeholder="ex: 0.01"
+                defaultValue={0}
                 type="number"
                 step="0.00001"
                 min="0"
-                //icon={<span className="text-xs">◎</span>}
               />
             </div>
             <div className="space-y-2">
@@ -118,10 +113,10 @@ export function AirdropMasterConfig({ register }: AirdropMasterConfigProps) {
                 //label="Airdrop Update Fee"
                 {...register("airdropUpdateFee")}
                 placeholder="ex: 0.01"
+                defaultValue={0}
                 type="number"
                 step="0.00001"
                 min="0"
-                // icon={<span className="text-xs">◎</span>}
               />
             </div>
 
@@ -133,9 +128,9 @@ export function AirdropMasterConfig({ register }: AirdropMasterConfigProps) {
                 //label="Delegation Fee"
                 {...register("delegateFee")}
                 placeholder="ex: 0.01"
-                type="number"
-                step="0.00001"
-                min="0"
+                //type="number"
+                //step="0.00001"
+                //min="0"
                 //icon={<span className="text-xs">◎</span>}
               />
             </div>

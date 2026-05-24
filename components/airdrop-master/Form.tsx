@@ -34,7 +34,15 @@ const AirdropMasterForm = ({ account }: { account: UiWalletAccount }) => {
             Your Airdrop Master Account Pda : <b>{airdropMasterPda}</b>
           </div>
         )}
-
+        {form.formState.errors && (
+          <p className="text-red-500 text-sm">
+            {form.formState.errors.airdropCreateFee?.message ||
+              form.formState.errors.airdropUpdateFee?.message ||
+              form.formState.errors.bitmapCreateFee?.message ||
+              form.formState.errors.claimFee?.message ||
+              form.formState.errors.delegateFee?.message}
+          </p>
+        )}
         <AirdropMasterConfig register={form.register} />
         <div className="sticky bottom-0 left-0 right-0 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60 border-t">
           <div className="container flex justify-center mx-auto px-6 py-4">

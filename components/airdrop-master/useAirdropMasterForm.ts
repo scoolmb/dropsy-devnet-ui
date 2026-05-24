@@ -19,14 +19,14 @@ export function useAirdropMasterForm(account: UiWalletAccount) {
     
 
     const form = useForm<AirdropMasterFormValues>({
-        resolver: zodResolver(airdropMasterSchema),
+        //resolver: zodResolver(airdropMasterSchema),
         defaultValues: {
             treasury: address(signer.address),
-            airdropCreateFee: null,
-            airdropUpdateFee: null,
-            bitmapCreateFee: null,
-            claimFee: null,
-            delegateFee: null,
+            airdropCreateFee: 0,
+            airdropUpdateFee: 0,
+            bitmapCreateFee: 0,
+            claimFee: 0,
+            delegateFee: 0,
         },
     });
 
