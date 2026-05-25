@@ -23,6 +23,7 @@ import {
 import { useSolana } from "@/lib/context/solana-provider";
 import { toast } from "sonner";
 import Link from "next/link";
+import { parseAnchorError } from "@/lib/helper/anchor-error";
 
 interface Props {
   instructions: Instruction[];
@@ -202,7 +203,13 @@ async function simulateTransaction({
     .send();
 
   if (value.err) {
-    console.log(value.logs);
+    console.log("Simulation logs:", value.logs);
+    const parsed = parseAnchorError(value.logs ?? []);
+
+    if (parsed) {
+      throw new Error(`[${parsed.number}] ${parsed.code}: ${parsed.message}`);
+    }
+
     throw new Error(`Simulation failed: ${safeStringify(value.err)}`);
   }
 }

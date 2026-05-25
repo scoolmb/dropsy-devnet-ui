@@ -128,10 +128,10 @@ export function AirdropMasterConfig({ register }: AirdropMasterConfigProps) {
                 //label="Delegation Fee"
                 {...register("delegateFee")}
                 placeholder="ex: 0.01"
-                //type="number"
-                //step="0.00001"
-                //min="0"
-                //icon={<span className="text-xs">◎</span>}
+                defaultValue={0}
+                type="number"
+                step="0.00001"
+                min="0"
               />
             </div>
           </div>

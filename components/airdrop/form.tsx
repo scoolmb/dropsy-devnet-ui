@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   CardContent,
   CardFooter,
@@ -12,14 +12,89 @@ import DropsyInput from "@/components/input/dropsy-input";
 import { DeployAirdropMasterCTA } from "../airdrop-master/deploy-cta";
 import { Label } from "@/components/ui/label";
 import CardWrapper from "@/components/card/card-wrapper";
+import {
+  TransactionModalView,
+  TransactionDetails,
+} from "../modal/transaction-modal";
+import {
+  getAirdropDerivedAddress,
+  getClaimMapDerivedAddress,
+} from "@/lib/derive";
+import { address } from "gill";
+import { formatAddress } from "@/lib/utils";
 
 const AirdropForm = ({ account }: { account: UiWalletAccount }) => {
   const { form, onSubmit } = useAirdropForm(account);
   const register = form.register;
 
+  // State for transaction modal
+  const [isTransactionModalOpen, setIsTransactionModalOpen] = useState(false);
+  const [isTransactionLoading, setIsTransactionLoading] = useState(false);
+  const [pendingFormData, setPendingFormData] = useState<any>(null);
+
+  // Transaction details based on form data
+  const getTransactionDetails = (formData: any): TransactionDetails => {
+    return {
+      network: "Solana Devnet",
+      action: "Deploy Airdrop",
+      from: formatAddress(account.address),
+      toProgram: formatAddress(formData.airdropMaster || "New Airdrop Master"),
+      requiredSol: "0.01 SOL",
+      createdPdas: [
+        { type: "Airdrop", address: formData.airdropPda || "airdropPda" },
+        { type: "Claim Map", address: formData.claimMapPda || "claimMapPda" },
+      ],
+    };
+  };
+
+  // Handle form submission - open modal instead of direct submission
+  const handleFormSubmit = async (formData: any) => {
+    const [airdropPda, bump] = await getAirdropDerivedAddress(
+      address(account.address),
+      address(form.getValues("mint") || ""),
+    );
+    const [claimMapPda, bump0] = await getClaimMapDerivedAddress(airdropPda, 0);
+    // Store form data for later use
+    setPendingFormData({ ...formData, airdropPda, claimMapPda });
+    // Open transaction confirmation modal
+    setIsTransactionModalOpen(true);
+  };
+
+  // Handle sign transaction
+  const handleSignTransaction = async () => {
+    setIsTransactionLoading(true);
+
+    try {
+      // Wait a moment to show loading state
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Call the original onSubmit with the pending form data
+      if (pendingFormData) {
+        await onSubmit(pendingFormData);
+      }
+
+      // Close modal on success
+      //setIsTransactionModalOpen(false);
+      //setPendingFormData(null);
+    } catch (error) {
+      console.error("Transaction failed:", error);
+      // You might want to show an error toast here
+    } finally {
+      setIsTransactionLoading(false);
+    }
+  };
+
+  // Handle modal close
+  const handleModalClose = () => {
+    if (!isTransactionLoading) {
+      setIsTransactionModalOpen(false);
+      setPendingFormData(null);
+    }
+  };
+
   return (
     <>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(handleFormSubmit)}>
         <CardWrapper>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -27,36 +102,8 @@ const AirdropForm = ({ account }: { account: UiWalletAccount }) => {
               Airdrop Configuration
             </CardTitle>
           </CardHeader>
-          {/*<MasterConfig
-            register={register}
-            airdropMaster={airdropMaster}
-            airdropMasterAddress={airdropMasterAddress}
-          />*/}
-          <CardContent className="space-y-6">
-            {/*<div className="space-y-2">
-              <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                Master Address :{" "}
-                {form.formState.errors.mint && (
-                  <p className="text-red-500 text-sm">
-                    {form.formState.errors.mint.message}
-                  </p>
-                )}
-              </Label>
 
-              <DropsyInput
-                label="Master Address"
-                icon={<Key className="w-4 h-4" />}
-                {...register("airdropMaster")}
-                placeholder="Enter master address"
-                //error={errors.mint?.message}
-                readAbout={{
-                  title: "Airdrop Master Address",
-                  description:
-                    "Each Airdrop Requires an Airdrop Master program to be deployed. Enter the address of an existing master or create your own",
-                }}
-              />
-            </div>
-            <Button>Create Airdrop Master</Button>*/}
+          <CardContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -73,13 +120,13 @@ const AirdropForm = ({ account }: { account: UiWalletAccount }) => {
                   icon={<Key className="w-4 h-4" />}
                   {...register("mint")}
                   placeholder="Enter token mint address"
-                  //error={errors.mint?.message}
                   readAbout={{
                     title: "Mint",
                     description: "The SPL token mint being airdropped",
                   }}
                 />
               </div>
+
               <div className="space-y-2">
                 <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   Amount of Tokens :{" "}
@@ -96,14 +143,13 @@ const AirdropForm = ({ account }: { account: UiWalletAccount }) => {
                   {...register("amount")}
                   placeholder="Enter amount of tokens"
                   type="number"
-                  //error={errors.amount?.message}
                   readAbout={{
                     title: "Amount",
                     description: "The Amount of tokens to be airdropped",
                   }}
-                  //type="number"
                 />
               </div>
+
               <div className="space-y-2">
                 <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   Delegate authority :
@@ -119,7 +165,6 @@ const AirdropForm = ({ account }: { account: UiWalletAccount }) => {
                   icon={<Users className="w-4 h-4" />}
                   {...register("delegateAuthority")}
                   placeholder="Enter delegate authority"
-                  //error={errors.delegateAuthority?.message}
                   readAbout={{
                     title: "Delegate Authority",
                     description: "Address allowed to manage airdrop on behalf",
@@ -142,7 +187,6 @@ const AirdropForm = ({ account }: { account: UiWalletAccount }) => {
                 icon={<Lock className="w-4 h-4" />}
                 {...register("merkleRoot")}
                 placeholder="Enter merkle root hash (hex)"
-                //error={errors.merkleRoot?.message}
                 readAbout={{
                   title: "Merkle Root",
                   description:
@@ -176,41 +220,7 @@ const AirdropForm = ({ account }: { account: UiWalletAccount }) => {
                   placeholder="Optional end time"
                 />
               </div>
-
-              {/*<DropsyInput
-              label="Version"
-              icon={<Timer className="w-4 h-4" />}
-              type="number"
-              {...register("version")}
-              placeholder="0"
-            />
-
-            <DropsyInput
-              label="Mutable"
-              icon={<Lock className="w-4 h-4" />}
-              type="number"
-              {...register("mutable")}
-              placeholder="0 or 1"
-              readAbout={{
-                title: "Mutable",
-                description:
-                  "Whether the airdrop can be modified after creation (0=immutable, 1=mutable)",
-              }}
-            />*/}
             </div>
-
-            {/*<DropsyInput
-            label="Delegate Permissions"
-            icon={<Users className="w-4 h-4" />}
-            type="number"
-            {...register("delegatePermissions")}
-            placeholder="0"
-            readAbout={{
-              title: "Delegate Permissions",
-              description:
-                "Bitmask of permissions granted to delegate authority",
-            }}
-          />*/}
           </CardContent>
 
           <CardFooter className="flex justify-center">
@@ -224,6 +234,17 @@ const AirdropForm = ({ account }: { account: UiWalletAccount }) => {
           </CardFooter>
         </CardWrapper>
       </form>
+
+      {/* Transaction Confirmation Modal */}
+      {pendingFormData && (
+        <TransactionModalView
+          isOpen={isTransactionModalOpen}
+          onClose={handleModalClose}
+          onSign={handleSignTransaction}
+          transactionDetails={getTransactionDetails(pendingFormData)}
+          isLoading={isTransactionLoading}
+        />
+      )}
     </>
   );
 };

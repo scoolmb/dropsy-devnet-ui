@@ -68,11 +68,13 @@ export const getDiscordUrl = (username: string) => {
   return `https://discord.com/users/${username}`
 }
 
-export const handleCopy = async (address: string, setCopied: React.Dispatch<React.SetStateAction<boolean>>) => {
+export const handleCopy = async (address: string, setCopied?: React.Dispatch<React.SetStateAction<boolean>>) => {
   try {
     await navigator.clipboard.writeText(address)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 1500)
+    if(setCopied) {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1500)
+    }
   } catch (err) {
     console.error('Copy failed', err)
   }

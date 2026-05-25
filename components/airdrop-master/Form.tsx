@@ -8,32 +8,78 @@ import { DeployAirdropMasterCTA } from "./deploy-cta";
 import { AirdropMasterConfig } from "./Basic-Setting";
 import { getAirdropMasterDerivedAddress } from "@/lib/derive";
 import { address } from "@solana/kit";
+import { formatAddress } from "@/lib/utils";
+import {
+  TransactionDetails,
+  TransactionModalView,
+} from "../modal/transaction-modal";
 
 const AirdropMasterForm = ({ account }: { account: UiWalletAccount }) => {
   const { form, onSubmit } = useAirdropMasterForm(account);
-  const [airdropMasterPda, setAirdropMasterPda] = useState<string | null>(null);
+  const [isTransactionModalOpen, setIsTransactionModalOpen] = useState(false);
+  const [isTransactionLoading, setIsTransactionLoading] = useState(false);
+  const [pendingFormData, setPendingFormData] = useState<any>(null);
 
-  useEffect(() => {
-    const loadPda = async () => {
-      const [pda] = await getAirdropMasterDerivedAddress(
-        address(account.address),
-      );
-
-      setAirdropMasterPda(pda);
+  const getTransactionDetails = (formData: any): TransactionDetails => {
+    return {
+      network: "Solana Devnet",
+      action: "Deploy Airdrop Master",
+      from: formatAddress(account.address),
+      requiredSol: "0.0021 SOL",
+      createdPdas: [
+        {
+          type: "Airdrop-Master",
+          address: formData.airdropMasterPda || "",
+        },
+      ],
     };
+  };
 
-    loadPda();
-  }, [account.address]);
+  const handleFormSubmit = async (formData: any) => {
+    const [airdropMasterPda, bump] = await getAirdropMasterDerivedAddress(
+      address(account.address),
+    );
+    // Store form data for later use
+    setPendingFormData({ ...formData, airdropMasterPda });
+    // Open transaction confirmation modal
+    setIsTransactionModalOpen(true);
+  };
+
+  const handleSignTransaction = async () => {
+    setIsTransactionLoading(true);
+
+    try {
+      // Wait a moment to show loading state
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Call the original onSubmit with the pending form data
+      if (pendingFormData) {
+        await onSubmit(pendingFormData);
+      }
+
+      // Close modal on success
+      //setIsTransactionModalOpen(false);
+      //setPendingFormData(null);
+    } catch (error) {
+      console.error("Transaction failed:", error);
+      // You might want to show an error toast here
+    } finally {
+      setIsTransactionLoading(false);
+    }
+  };
+
+  // Handle modal close
+  const handleModalClose = () => {
+    if (!isTransactionLoading) {
+      setIsTransactionModalOpen(false);
+      setPendingFormData(null);
+    }
+  };
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)}>
+    <form onSubmit={form.handleSubmit(handleFormSubmit)}>
       <Card className="bg-linear-to-br p-5 from-white-500/50 to-white dark:from-black/50 dark:to-black backdrop-blur-sm min-h-92">
         <AirdropMasterHeader />
-        {airdropMasterPda && (
-          <div className="text-sm text-muted-foreground">
-            Your Airdrop Master Account Pda : <b>{airdropMasterPda}</b>
-          </div>
-        )}
         {form.formState.errors && (
           <p className="text-red-500 text-sm">
             {form.formState.errors.airdropCreateFee?.message ||
@@ -54,6 +100,15 @@ const AirdropMasterForm = ({ account }: { account: UiWalletAccount }) => {
           </div>
         </div>
       </Card>
+      {pendingFormData && (
+        <TransactionModalView
+          isOpen={isTransactionModalOpen}
+          onClose={handleModalClose}
+          onSign={handleSignTransaction}
+          transactionDetails={getTransactionDetails(pendingFormData)}
+          isLoading={isTransactionLoading}
+        />
+      )}
     </form>
   );
 };

@@ -101,6 +101,7 @@ endsAt: data.endsAt
     const createBitmapIx = await getCreateBitmapInstructionAsync(claimMapdata);
 
     const createDepositIx = await getDepositTokensInstructionAsync(depositData);
+    
     instructions.push(createBitmapIx, createDepositIx);
 
         return sendTx({ instructions, signer });
