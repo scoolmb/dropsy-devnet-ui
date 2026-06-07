@@ -2,10 +2,8 @@ import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { TransactionDetails } from "./types";
-import { formatAddress, handleCopy } from "@/lib/utils";
-import { Clipboard, MapPin } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import AddressItemDisplay from "@/components/address-display";
+import { MapPin } from "lucide-react";
 
 interface TransactionDetailsCardProps {
   details: TransactionDetails;

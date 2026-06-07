@@ -16,7 +16,8 @@ import {
 } from "@solana-program/token";
 import { fetchMint } from "gill/programs";
 import { fromUiAmount } from "@/lib/utils";
-export function useAirdropForm(account: UiWalletAccount) {
+import { getAirdropDerivedAddress } from "@/lib/derive";
+export function useAirdropForm(account: UiWalletAccount, airdropId: number) {
     const { chain, rpc } = useSolana();
     const signer = useWalletAccountTransactionSendingSigner(account, chain);
     const { mutateAsync: createAirdrop } = useCreateAirdrop();
@@ -32,7 +33,7 @@ export function useAirdropForm(account: UiWalletAccount) {
         mode: "onChange",
         defaultValues: {
           mint: "",
-          amount: "",
+          amount: "", 
           merkleRoot: "",
           startsAt: null,
           endsAt: null,
@@ -57,6 +58,11 @@ export function useAirdropForm(account: UiWalletAccount) {
           .map((byte) => parseInt(byte, 16)),
       ) as ReadonlyUint8Array;
 
+      const [airdrop, airdropBump] = await getAirdropDerivedAddress(
+    signer.address,
+    address(data.mint),
+    airdropId,
+  );
 
       const instructions = await createAirdrop({
         airdropMaster: address(AIRDROP_MASTER),
@@ -65,6 +71,7 @@ export function useAirdropForm(account: UiWalletAccount) {
         protocolTreasury: DROPSY_TREASURY_ADDRESS,
         mint: address(data.mint),
         merkleRoot: merkleRootBytes,
+        airdrop,
         startsAt: data.startsAt
   ? BigInt(new Date(data.startsAt).getTime() / 1000) // milliseconds since epoch
   : null,
@@ -73,12 +80,14 @@ endsAt: data.endsAt
   : null,
 
         version: null, // Number(data.version),
-        mutable: null, //Number(data.mutable),
+        id: BigInt(airdropId), // You can generate a unique ID for each airdrop, e.g., using a timestamp or a UUID
         delegateAuthority: null, // address(data.delegateAuthority),
-        delegatePermissions: null, // Number(data.delegatePermissions),
         authority: signer,
       });
+
+
       const claimMapdata: CreateBitmapAsyncInput = {
+        airdropId,
       mint: address(data.mint),
       treasury: address(AIRDROP_MASTER_TREASURY),
       protocolTreasury: DROPSY_TREASURY_ADDRESS,
@@ -93,6 +102,7 @@ endsAt: data.endsAt
       tokenProgram: TOKEN_PROGRAM_ADDRESS,
     });
     const depositData: DepositTokensAsyncInput = {
+      airdropId,
       mint: address(data.mint),
       sourceTokenAccount,
       amount: data.amount ? BigInt(amountIn) : 0,
@@ -102,7 +112,7 @@ endsAt: data.endsAt
 
     const createDepositIx = await getDepositTokensInstructionAsync(depositData);
     
-    instructions.push(createBitmapIx, createDepositIx);
+    instructions.push( createDepositIx, createBitmapIx);
 
         return sendTx({ instructions, signer });
     };

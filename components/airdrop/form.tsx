@@ -23,8 +23,14 @@ import {
 import { address } from "gill";
 import { formatAddress } from "@/lib/utils";
 
-const AirdropForm = ({ account }: { account: UiWalletAccount }) => {
-  const { form, onSubmit } = useAirdropForm(account);
+const AirdropForm = ({
+  account,
+  airdropId,
+}: {
+  account: UiWalletAccount;
+  airdropId: number;
+}) => {
+  const { form, onSubmit } = useAirdropForm(account, airdropId);
   const register = form.register;
 
   // State for transaction modal
@@ -52,6 +58,7 @@ const AirdropForm = ({ account }: { account: UiWalletAccount }) => {
     const [airdropPda, bump] = await getAirdropDerivedAddress(
       address(account.address),
       address(form.getValues("mint") || ""),
+      airdropId,
     );
     const [claimMapPda, bump0] = await getClaimMapDerivedAddress(airdropPda, 0);
     // Store form data for later use

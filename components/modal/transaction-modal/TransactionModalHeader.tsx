@@ -1,5 +1,5 @@
 import React from "react";
-import { DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { DialogTitle } from "@/components/ui/dialog";
 
 export const TransactionHeader: React.FC = () => {
   return (

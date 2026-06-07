@@ -2,6 +2,7 @@ import {
   Address,
   getAddressEncoder,
   getProgramDerivedAddress,
+  getU64Encoder,
   ProgramDerivedAddressBump,
   ReadonlyUint8Array,
 } from "@solana/kit";
@@ -47,12 +48,14 @@ export async function getAffiliateDerivedAddress(
 
 export async function getAirdropDerivedAddress(
   authority: Address,
-  mint: Address
+  mint: Address,
+  id?: number,
 ): Promise<DropsyPda> {
   const seeds = [
     AIRDROP_SEED,
     getAddressEncoder().encode(authority),
     getAddressEncoder().encode(mint),
+    getU64Encoder().encode(id ?? 0),
 
   ];
   return await getDropsyDerivedAddress(seeds);
