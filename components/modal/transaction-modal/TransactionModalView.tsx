@@ -1,5 +1,10 @@
 import React from "react";
-import { Dialog, DialogContent, DialogFooter } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import { TransactionModalProps } from "./types";
 //import { TransactionHeader } from "./TransactionHeader";
 import { TransactionDetailsCard } from "./TransactionDetails";
@@ -23,8 +28,14 @@ export const TransactionModalView: React.FC<TransactionModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={handleCancel}>
-      <DialogContent className="sm:max-w-md w-full">
+      <DialogContent
+        className="sm:max-w-md w-full"
+        aria-describedby="transaction-modal-description"
+      >
         <TransactionHeader />
+        <DialogDescription id="transaction-modal-description">
+          Review the transaction details before signing.
+        </DialogDescription>
         <div className="py-2">
           <TransactionDetailsCard details={transactionDetails} />
           <RequiredSolAlert requiredSol={transactionDetails.requiredSol} />

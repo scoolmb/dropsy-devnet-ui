@@ -9,7 +9,7 @@ import { airdropFormSchema, AirdropFormValues } from "../../lib/schema/airdrop";
 import { useCreateAirdrop } from "@/features/airdrop/use-create-airdrop";
 import { DROPSY_TREASURY_ADDRESS } from "@/lib/constants";
 import { toast } from "sonner";
-import { CreateBitmapAsyncInput, DepositTokensAsyncInput, getCreateBitmapInstructionAsync, getDepositTokensInstructionAsync } from "@dropsy/airdrop";
+import { CreateBitmapAsyncInput, DepositTokensAsyncInput, fetchAirdropMaster, getCreateBitmapInstructionAsync, getDepositTokensInstructionAsync } from "@dropsy/airdrop";
 import {
   findAssociatedTokenPda,
   TOKEN_PROGRAM_ADDRESS,
@@ -24,8 +24,7 @@ export function useAirdropForm(account: UiWalletAccount, airdropId: number) {
     const { mutateAsync: sendTx } = useTransactionBuilder();
 
     const AIRDROP_MASTER = process.env.NEXT_PUBLIC_AIRDROP_MASTER;
-    const AIRDROP_MASTER_TREASURY = process.env.NEXT_PUBLIC_AIRDROP_MASTER_TREASURY;
-    const AIRDROP_MASTER_CREATOR = process.env.NEXT_PUBLIC_AIRDROP_MASTER_CREATOR;
+
   
     
     const form = useForm<AirdropFormValues>({
@@ -42,10 +41,11 @@ export function useAirdropForm(account: UiWalletAccount, airdropId: number) {
     });
 
     const onSubmit = async (data: AirdropFormValues) => {
-      if(!AIRDROP_MASTER  || !AIRDROP_MASTER_CREATOR || !AIRDROP_MASTER_TREASURY) {
+      if(!AIRDROP_MASTER ) {
         toast.error("Airdrop Master Not Found, please set airdrop master address, treasury and creator in the .env file");
       return;     
     }
+    const airdropMasterAcc = await fetchAirdropMaster(rpc, address(AIRDROP_MASTER));
       const mintAccount = await fetchMint(rpc, address(data.mint));
       console.log(mintAccount);
 
@@ -66,8 +66,8 @@ export function useAirdropForm(account: UiWalletAccount, airdropId: number) {
 
       const instructions = await createAirdrop({
         airdropMaster: address(AIRDROP_MASTER),
-        masterCreator: address(AIRDROP_MASTER_CREATOR),
-        treasury: address(AIRDROP_MASTER_TREASURY),
+        masterCreator: airdropMasterAcc.data.creator,
+        treasury: airdropMasterAcc.data.treasury,
         protocolTreasury: DROPSY_TREASURY_ADDRESS,
         mint: address(data.mint),
         merkleRoot: merkleRootBytes,
@@ -89,9 +89,9 @@ endsAt: data.endsAt
       const claimMapdata: CreateBitmapAsyncInput = {
         airdropId,
       mint: address(data.mint),
-      treasury: address(AIRDROP_MASTER_TREASURY),
+      treasury: airdropMasterAcc.data.treasury,
       protocolTreasury: DROPSY_TREASURY_ADDRESS,
-      masterCreator: address(AIRDROP_MASTER_CREATOR),
+      masterCreator: airdropMasterAcc.data.creator,
       id: 0,
       total: 5000,
       authority: signer,
