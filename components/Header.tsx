@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { WalletConnectButton } from "./wallet-connect-button";
 import { ModeToggle } from "./mode-toggle";
 import { cn } from "@/lib/utils";
+import { RpcToggle } from "./layout/toggle-cluster";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -39,6 +40,7 @@ export default function Header() {
 
               {/* Theme Toggle */}
               <ModeToggle />
+              <RpcToggle />
             </div>
           </div>
         </div>

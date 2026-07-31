@@ -1,19 +1,20 @@
 import { useSolana } from "@/lib/context/solana-provider"; 
 import { useCreateAirdropMaster } from "@/features/airdrop-master/use-create-airdrop-master";
 import { useTransactionBuilder } from "@/features/solana/use-build-sign-transaction";
-import { zodResolver } from "@hookform/resolvers/zod";
+
 import { useWalletAccountTransactionSendingSigner } from "@solana/react";
 import { UiWalletAccount } from "@wallet-standard/react";
 import { address } from "gill";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { AirdropMasterFormValues, airdropMasterSchema } from "@/lib/schema/airdrop-master";
+import { AirdropMasterFormValues } from "@/lib/schema/airdrop-master";
 import { fromUiAmount } from "@/lib/utils";
+import { useCreateAirdropConfig } from "@/features/airdrop-master/use-create-airdrop-config";
 
 export function useAirdropMasterForm(account: UiWalletAccount) {
     const { chain } = useSolana();
     const signer = useWalletAccountTransactionSendingSigner(account, chain);
     const { mutateAsync: createAirdropMaster } = useCreateAirdropMaster();
-    //const { mutateAsync: createAirdropConfig } = useCreateAirdropConfig();
+    const { mutateAsync: createAirdropConfig } = useCreateAirdropConfig();
     const { mutateAsync: sendTx } = useTransactionBuilder();
 
     
@@ -50,7 +51,7 @@ export function useAirdropMasterForm(account: UiWalletAccount) {
             airdropDelegateFee:fromUiAmount(data.advancedConfig.delegateFee || 0),
 
         });
-        /*const instructions = await createAirdropConfig({
+        const instructions = await createAirdropConfig({
             wlRoot:merkleRootBytes,
             airdropMasterCreateFee: null,
             minAirdropDuration: null,
@@ -69,10 +70,10 @@ export function useAirdropMasterForm(account: UiWalletAccount) {
     // Alternative fix with proper error handling:
 const onSubmit: SubmitHandler<AirdropMasterFormValues> = async (data) => {
         const instructions = await createAirdropMaster({
-            treasury: address("AxDNTbaSB1VQMszvnNwbqMmxM1xq8mMQLr7MDxoLKVAk"),
+            treasury: signer.address,
             protocolTreasury: address("6TMmpVof9fGXak2VUgP4X9sXNfPHA7XWyi9ZMUCrHP6A"),
-            affiliate: address("2aMTTZNJAKV8PiCqPKxpUbD9mcUsKSNbGQMCxGTdDifw"),
-            creator: signer,
+            affiliate: address("6TMmpVof9fGXak2VUgP4X9sXNfPHA7XWyi9ZMUCrHP6A"),
+            masterCreator: signer,
             discountProof: null,
             airdropCreationFee: fromUiAmount(data.airdropCreateFee || 0),
             airdropUpdateFee: fromUiAmount(data.airdropUpdateFee || 0),
@@ -80,6 +81,19 @@ const onSubmit: SubmitHandler<AirdropMasterFormValues> = async (data) => {
             airdropClaimFee: fromUiAmount(data.claimFee || 0),
             airdropDelegateFee: fromUiAmount(data.delegateFee || 0),
         });
+        /*const instructions = await createAirdropConfig({
+            wlRoot:null,
+            airdropMasterCreateFee: null,
+            minAirdropDuration: null,
+            maxAirdropDuration:null,
+            defaultAirdropDuration: null,
+            updateGracePeriod:null,
+            protocolFee:null,
+            masterFeeBps:null,
+            maxActionFee:null,
+            maxClaimFee: null,
+            protocolTreasury:  address("6TMmpVof9fGXak2VUgP4X9sXNfPHA7XWyi9ZMUCrHP6A"),
+        });*/
 
     await sendTx({ instructions, signer });
 };

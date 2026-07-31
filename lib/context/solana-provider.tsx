@@ -10,18 +10,14 @@ import { createSolanaRpc, createSolanaRpcSubscriptions } from "@solana/kit";
 import { StandardConnect } from "@wallet-standard/core";
 import { useWalletUi, WalletUiContextValue } from "@wallet-ui/react";
 
-// Create RPC connection
-const RPC_ENDPOINT = "https://api.devnet.solana.com";
-const WS_ENDPOINT = "wss://api.devnet.solana.com";
-const chain = "solana:devnet";
-const rpc = createSolanaRpc(RPC_ENDPOINT);
-const ws = createSolanaRpcSubscriptions(WS_ENDPOINT);
-
 interface SolanaContextState {
   // RPC
   rpc: ReturnType<typeof createSolanaRpc>;
   ws: ReturnType<typeof createSolanaRpcSubscriptions>;
-  chain: typeof chain;
+
+  cluster: SolanaCluster;
+  setCluster: (cluster: SolanaCluster) => void;
+  chain: string;
 
   // Wallet State
 
@@ -38,6 +34,23 @@ interface SolanaContextState {
   ) => void;
 }
 
+type SolanaCluster = "devnet" | "mainnet";
+
+const RPC_ENDPOINTS = {
+  devnet: {
+    rpc: "https://api.devnet.solana.com",
+    ws: "wss://api.devnet.solana.com",
+    chain: "solana:devnet",
+  },
+  mainnet: {
+    rpc:
+      process.env.NEXT_PUBLIC_MAINNET_RPC ||
+      "https://api.mainnet-beta.solana.com",
+    ws: "wss://api.mainnet-beta.solana.com",
+    chain: "solana:mainnet",
+  },
+} satisfies Record<SolanaCluster, { rpc: string; ws: string; chain: string }>;
+
 const SolanaContext = createContext<SolanaContextState | undefined>(undefined);
 
 export function useSolana() {
@@ -51,6 +64,19 @@ export function useSolana() {
 export function SolanaProvider({ children }: { children: React.ReactNode }) {
   const allWallets = useWallets();
   const walletUi = useWalletUi();
+
+  const [cluster, setCluster] = useState<SolanaCluster>("devnet");
+
+  const rpc = useMemo(
+    () => createSolanaRpc(RPC_ENDPOINTS[cluster].rpc),
+    [cluster],
+  );
+  const ws = useMemo(
+    () => createSolanaRpcSubscriptions(RPC_ENDPOINTS[cluster].ws),
+    [cluster],
+  );
+
+  const chain = useMemo(() => RPC_ENDPOINTS[cluster].chain, [cluster]);
 
   // Filter for Solana wallets only that support signAndSendTransaction
   const wallets = useMemo(() => {
@@ -95,6 +121,8 @@ export function SolanaProvider({ children }: { children: React.ReactNode }) {
       // Static RPC values
       rpc,
       ws,
+      cluster,
+      setCluster,
       chain,
 
       // Dynamic wallet values
@@ -105,7 +133,17 @@ export function SolanaProvider({ children }: { children: React.ReactNode }) {
       isConnected,
       setWalletAndAccount,
     }),
-    [wallets, selectedWallet, walletUi, selectedAccount, isConnected],
+    [
+      wallets,
+      selectedWallet,
+      walletUi,
+      selectedAccount,
+      isConnected,
+      cluster,
+      rpc,
+      ws,
+      chain,
+    ],
   );
 
   return (

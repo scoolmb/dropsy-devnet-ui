@@ -55,6 +55,7 @@ const AirdropForm = ({
 
   // Handle form submission - open modal instead of direct submission
   const handleFormSubmit = async (formData: any) => {
+    // Ensure the program ID is loaded
     const [airdropPda, bump] = await getAirdropDerivedAddress(
       address(account.address),
       address(form.getValues("mint") || ""),

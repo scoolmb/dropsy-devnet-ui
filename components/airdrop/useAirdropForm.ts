@@ -9,7 +9,7 @@ import { airdropFormSchema, AirdropFormValues } from "../../lib/schema/airdrop";
 import { useCreateAirdrop } from "@/features/airdrop/use-create-airdrop";
 import { DROPSY_TREASURY_ADDRESS } from "@/lib/constants";
 import { toast } from "sonner";
-import { CreateBitmapAsyncInput, DepositTokensAsyncInput, fetchAirdropMaster, getCreateBitmapInstructionAsync, getDepositTokensInstructionAsync } from "@dropsy/airdrop";
+import { CreateBitmapAsyncInput, DepositTokensAsyncInput, fetchAirdropMaster, getCreateBitmapInstructionAsync, getDepositTokensInstructionAsync, DROPSY_AIRDROP_PROGRAM_ADDRESS } from "@dropsy/airdrop";
 import {
   findAssociatedTokenPda,
   TOKEN_PROGRAM_ADDRESS,
@@ -63,6 +63,8 @@ export function useAirdropForm(account: UiWalletAccount, airdropId: number) {
     address(data.mint),
     airdropId,
   );
+
+    console.log("Airdrop Master treasury  :", airdropMasterAcc.data.treasury.toString());
 
       const instructions = await createAirdrop({
         airdropMaster: address(AIRDROP_MASTER),

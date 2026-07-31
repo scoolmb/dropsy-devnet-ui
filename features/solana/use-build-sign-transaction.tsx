@@ -111,7 +111,7 @@ interface Props {
 }*/
 
 export function useTransactionBuilder() {
-  const { rpc } = useSolana();
+  const { rpc, cluster } = useSolana();
 
   return useMutation<Signature, Error, Props>({
     mutationFn: async ({ instructions, signer }) => {
@@ -125,12 +125,16 @@ export function useTransactionBuilder() {
         blockhash: blockhash,
       });
 
+      console.log("message :", message);
+
       // 1️⃣ Simulate
-      try {
-        await simulateTransaction({ rpc, message });
-      } catch (err) {
-        toast.error("Simulation failed");
-        throw err;
+      if (cluster == "devnet") {
+        try {
+          await simulateTransaction({ rpc, message });
+        } catch (err) {
+          toast.error("Simulation failed");
+          throw err;
+        }
       }
 
       // 2️⃣ Sign & send
