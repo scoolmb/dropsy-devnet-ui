@@ -128,14 +128,14 @@ export function useTransactionBuilder() {
       console.log("message :", message);
 
       // 1️⃣ Simulate
-      if (cluster == "devnet") {
-        try {
-          await simulateTransaction({ rpc, message });
-        } catch (err) {
-          toast.error("Simulation failed");
-          throw err;
-        }
+      //if (cluster == "devnet") {
+      try {
+        await simulateTransaction({ rpc, message });
+      } catch (err) {
+        toast.error("Simulation failed");
+        throw err;
       }
+      // }
 
       // 2️⃣ Sign & send
       try {
