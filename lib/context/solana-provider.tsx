@@ -10,6 +10,8 @@ import { createSolanaRpc, createSolanaRpcSubscriptions } from "@solana/kit";
 import { StandardConnect } from "@wallet-standard/core";
 import { useWalletUi, WalletUiContextValue } from "@wallet-ui/react";
 
+type SolanaChain = "solana:devnet" | "solana:mainnet";
+
 interface SolanaContextState {
   // RPC
   rpc: ReturnType<typeof createSolanaRpc>;
@@ -17,7 +19,7 @@ interface SolanaContextState {
 
   cluster: SolanaCluster;
   setCluster: (cluster: SolanaCluster) => void;
-  chain: string;
+  chain: SolanaChain;
 
   // Wallet State
 
@@ -49,7 +51,10 @@ const RPC_ENDPOINTS = {
     ws: "wss://api.mainnet-beta.solana.com",
     chain: "solana:mainnet",
   },
-} satisfies Record<SolanaCluster, { rpc: string; ws: string; chain: string }>;
+} satisfies Record<
+  SolanaCluster,
+  { rpc: string; ws: string; chain: SolanaChain }
+>;
 
 const SolanaContext = createContext<SolanaContextState | undefined>(undefined);
 
