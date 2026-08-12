@@ -58,7 +58,7 @@ export function useAirdropForm(account: UiWalletAccount, airdropId: number) {
           .map((byte) => parseInt(byte, 16)),
       ) as ReadonlyUint8Array;
 
-      const [airdrop, airdropBump] = await getAirdropDerivedAddress(
+      const [airdrop, _airdropBump] = await getAirdropDerivedAddress(
     signer.address,
     address(data.mint),
     airdropId,
