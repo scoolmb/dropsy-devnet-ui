@@ -3,7 +3,7 @@ import { useFetchAirdropMaster } from "@/features/airdrop-master/use-get-airdrop
 import { address, isAddress } from "gill";
 import React, { useEffect } from "react";
 //import { FeeStructure } from "./fee-structure";
-import { AirdropMaster } from "@dropsy/airdrop";
+import { AirdropMaster } from "@/lib/dropsy";
 
 const AirdropMasterOverview = ({
   id,

@@ -1,7 +1,7 @@
 import DropsyInput from "@/components/input/dropsy-input";
 import { CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { AirdropMaster } from "@dropsy/airdrop";
+import { AirdropMaster } from "@/lib/dropsy";
 import { Address } from "gill";
 import { Key, Users } from "lucide-react";
 import { UseFormRegister } from "react-hook-form";
