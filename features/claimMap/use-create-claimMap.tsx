@@ -3,7 +3,7 @@ import { Instruction } from "@solana/kit";
 import {
   CreateBitmapAsyncInput,
   getCreateBitmapInstructionAsync,
-} from "@dropsy/airdrop";
+} from "@/lib/dropsy";
 
 export function useCreateClaimMap() {
   return useMutation<Instruction[], Error, CreateBitmapAsyncInput>({

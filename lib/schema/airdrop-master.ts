@@ -8,23 +8,6 @@ export const solanaAddressSchema = z
   })
   .transform((val) => val.toString()); 
 
-  const optionalDecimalSchema = z
-  .string()
-  .trim()
-  .optional()
-  .refine((val) => {
-    if (val === undefined || val === "") return true;
-
-    const num = Number(val);
-
-    return (
-      !isNaN(num) &&
-      num >= 0 
-    );
-  }, {
-    message: "Fee Amount must be a valid number ",
-  });
-
   const optionalFeeSchema = z
   .coerce
   .number()

@@ -5,7 +5,7 @@ import {
   assertAccountExists,
   createSolanaRpc,
 } from "@solana/kit";
-import { AirdropMaster, fetchMaybeAirdropMaster } from "@dropsy/airdrop";
+import { AirdropMaster, fetchMaybeAirdropMaster } from "@/lib/dropsy";
 
 export function useFetchAirdropMaster(
   rpc: ReturnType<typeof createSolanaRpc>,

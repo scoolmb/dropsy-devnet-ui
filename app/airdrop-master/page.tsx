@@ -5,8 +5,16 @@ import { AuthWalletGate } from "@/components/auth-gate";
 import { Rocket } from "lucide-react";
 import AirdropMasterForm from "@/components/airdrop-master/Form";
 import { CardContent } from "@/components/ui/card";
+import { useSolana } from "@/lib/context/solana-provider";
+import { useCheckEligibility } from "@/features/eligibility/use-check-eligibility";
 
 export default function CreateAirdropMasterPage() {
+  const { selectedAccount } = useSolana();
+  const { data: eligibilityResult, isLoading: eligibilityLoading } =
+    useCheckEligibility(selectedAccount?.address);
+
+  const hasWallet = !!selectedAccount;
+  const isEligible = !!eligibilityResult;
   /*const [discountData, setDiscountData] = useState<Record<
     string,
     unknown
@@ -49,6 +57,15 @@ export default function CreateAirdropMasterPage() {
               </div>
             </div>
           </CardContent>
+          <h3
+            className={`text-lg font-semibold ${
+              hasWallet && isEligible ? "text-green-800" : "text-gray-800"
+            }`}
+          >
+            {hasWallet && isEligible
+              ? "Wallet is Eligible!"
+              : "Wallet is Not Eligible"}
+          </h3>
 
           <AuthWalletGate>
             {(account) => <AirdropMasterForm account={account} />}

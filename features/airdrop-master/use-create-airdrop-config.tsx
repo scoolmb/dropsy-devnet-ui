@@ -1,10 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import { Instruction } from "@solana/kit";
-
 import {
   getInitializeAirdropConfigInstructionAsync,
   InitializeAirdropConfigAsyncInput,
-} from "@dropsy/airdrop";
+} from "@/lib/dropsy";
 
 export function useCreateAirdropConfig() {
   return useMutation<Instruction[], Error, InitializeAirdropConfigAsyncInput>({

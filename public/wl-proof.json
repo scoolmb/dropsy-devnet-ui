@@ -1,0 +1,123 @@
+{
+  "merkleRoot": "b51ceeeca625a49e4f82dceaa94a31eacf7f5cb1e06cb6ccd2897ba748b29ed4",
+  "totalAddresses": 12,
+  "generatedAt": "2026-08-13T17:28:20.642Z",
+  "proofs": [
+    {
+      "address": "6C3794oBuEoaML2YszM39H9TwQPK836hdmj6R8WEk8jW",
+      "proof": [
+        "3dc84dec5c91d0edfd5803a41882fd056ab17e2e28e09146465a117bc4909b8d",
+        "db7e5f8cf0faf2e5a05623283d1ef3aec63fd65895567017d057d11997b34356",
+        "97aa951ecc3b1663c704e55b356fa7d4830c7865f0274882a93bcf2ce85d4b43",
+        "47fb2cc1ab46bcac6effea45341a353d91580bd1fea3ace09122fc614c899626"
+      ],
+      "index": 0
+    },
+    {
+      "address": "6TMmpVof9fGXak2VUgP4X9sXNfPHA7XWyi9ZMUCrHP6A",
+      "proof": [
+        "9447a4c62b773f7879c422d1899f2e1fffedf730119a6d65c94a6d40bd31eaea",
+        "db7e5f8cf0faf2e5a05623283d1ef3aec63fd65895567017d057d11997b34356",
+        "97aa951ecc3b1663c704e55b356fa7d4830c7865f0274882a93bcf2ce85d4b43",
+        "47fb2cc1ab46bcac6effea45341a353d91580bd1fea3ace09122fc614c899626"
+      ],
+      "index": 1
+    },
+    {
+      "address": "G2RJRbyPw2refvFMjHmeoLp7Xc4Y18nhzMpm38rWWuNd",
+      "proof": [
+        "ffbb9770fd95ab22d6f7ec3fb59fca332d2df61edcb7668edab227573815829a",
+        "692f1217c642f25bd2f8c883d89f13ac93d55dc654e521db5dc7bb15e2bfdf61",
+        "97aa951ecc3b1663c704e55b356fa7d4830c7865f0274882a93bcf2ce85d4b43",
+        "47fb2cc1ab46bcac6effea45341a353d91580bd1fea3ace09122fc614c899626"
+      ],
+      "index": 2
+    },
+    {
+      "address": "96ceDr4NqU5o6W3iLCwdApD5TVdmaRzindQ7TwDa68gP",
+      "proof": [
+        "059a4fb0a9724b185baced0dd9660c47459c7252637dc015ca568c9087fb24de",
+        "692f1217c642f25bd2f8c883d89f13ac93d55dc654e521db5dc7bb15e2bfdf61",
+        "97aa951ecc3b1663c704e55b356fa7d4830c7865f0274882a93bcf2ce85d4b43",
+        "47fb2cc1ab46bcac6effea45341a353d91580bd1fea3ace09122fc614c899626"
+      ],
+      "index": 3
+    },
+    {
+      "address": "GLMyxj5EffpY586ZjsBycStfLQTbWBPQEMjs57DQiqNJ",
+      "proof": [
+        "9fb90b2ce927ca173bcb48650b6e03117218110961532a7ccf55d28ec20739e6",
+        "4b42ed37bf4592947c341f5b325304d24699680960f050319116c8f8ac2411fe",
+        "9ccdcf44743358e46c2acb08360e292ce7c954594d3b94c8342601a3a575468c",
+        "47fb2cc1ab46bcac6effea45341a353d91580bd1fea3ace09122fc614c899626"
+      ],
+      "index": 4
+    },
+    {
+      "address": "7h3JkFxAfaNKaWAtux1izwZfERVMvjQuE6tRzb8fXHLr",
+      "proof": [
+        "5d047df3b1a4289949e10ec464c7ed425bdc6bf4ce9bcd76ce88281ef9696c0e",
+        "4b42ed37bf4592947c341f5b325304d24699680960f050319116c8f8ac2411fe",
+        "9ccdcf44743358e46c2acb08360e292ce7c954594d3b94c8342601a3a575468c",
+        "47fb2cc1ab46bcac6effea45341a353d91580bd1fea3ace09122fc614c899626"
+      ],
+      "index": 5
+    },
+    {
+      "address": "E7K8QzUH5BNwRVW887Rz8CU1MoQAjR1K7rdKc4368ABm",
+      "proof": [
+        "2ce3488b493d5b3c3875d1ab82afbcc25b80fdae3ad0f5bc89e30d1118089095",
+        "a21715429247aac2c7b922bfc9520e92d0aac807c2fe93a8515cd084f96a6ec3",
+        "9ccdcf44743358e46c2acb08360e292ce7c954594d3b94c8342601a3a575468c",
+        "47fb2cc1ab46bcac6effea45341a353d91580bd1fea3ace09122fc614c899626"
+      ],
+      "index": 6
+    },
+    {
+      "address": "Esx2pNDm6hktcGGN5a3ep2QN4sicp7WvoAuaMTuXLqJd",
+      "proof": [
+        "8d96330b426325a1d829252a40a4c6009f0402e6046327994e502058cb1a9c61",
+        "a21715429247aac2c7b922bfc9520e92d0aac807c2fe93a8515cd084f96a6ec3",
+        "9ccdcf44743358e46c2acb08360e292ce7c954594d3b94c8342601a3a575468c",
+        "47fb2cc1ab46bcac6effea45341a353d91580bd1fea3ace09122fc614c899626"
+      ],
+      "index": 7
+    },
+    {
+      "address": "ARBCVxto8cS5fTRvAJiA9X8yLq1X7VUdtmdRQDJLLoSo",
+      "proof": [
+        "32808628678136c7618c40d85a68cc30185c43f40ba40ab4b07ab42af37b3e18",
+        "193736640ffd35feae2e13c826e4103365ff95447cf38f7098f27604f700d35f",
+        "0496b40d667d6cf14c7b0c5b6546f070e7ce154e23ebfcc006c6b9aa765d9614"
+      ],
+      "index": 8
+    },
+    {
+      "address": "2sFoByoQ8MfvrGYiyMngyJ6SaJHnVJAcEwbzcLWYkpWB",
+      "proof": [
+        "c37dbc295e950feb7c30ac31c1b7902bb9380d1efd41a02722646df4fb73d164",
+        "193736640ffd35feae2e13c826e4103365ff95447cf38f7098f27604f700d35f",
+        "0496b40d667d6cf14c7b0c5b6546f070e7ce154e23ebfcc006c6b9aa765d9614"
+      ],
+      "index": 9
+    },
+    {
+      "address": "seQs6n6TRTBg1fC3fAfedGvHcRsf1akqoikWEvk6HuG",
+      "proof": [
+        "7f2f1292424d96bbe4faddf1e4e25c21b2fe76b83ecb3d90840743e0799ba1b4",
+        "6421e653720eb2265c83869115f66f3b06b629fac9654158d63ecc80c7b09cb6",
+        "0496b40d667d6cf14c7b0c5b6546f070e7ce154e23ebfcc006c6b9aa765d9614"
+      ],
+      "index": 10
+    },
+    {
+      "address": "CyK6PLt1AzyGQ7P2APdaWit5ZvzFY3RUAs9Wr63GtdeC",
+      "proof": [
+        "50e9e96ec2612845fcc3d83e8d9c662b8ddc87319321a5799be2068ed01e0a4f",
+        "6421e653720eb2265c83869115f66f3b06b629fac9654158d63ecc80c7b09cb6",
+        "0496b40d667d6cf14c7b0c5b6546f070e7ce154e23ebfcc006c6b9aa765d9614"
+      ],
+      "index": 11
+    }
+  ]
+}

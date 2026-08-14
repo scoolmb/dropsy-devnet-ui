@@ -9,6 +9,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { AirdropMasterFormValues } from "@/lib/schema/airdrop-master";
 import { fromUiAmount } from "@/lib/utils";
 import { useCreateAirdropConfig } from "@/features/airdrop-master/use-create-airdrop-config";
+import { useCheckEligibility } from "@/features/eligibility/use-check-eligibility";
+import { getClaimProof } from "@/lib/helper/merkle";
 
 export function useAirdropMasterForm(account: UiWalletAccount) {
     const { chain } = useSolana();
@@ -16,6 +18,8 @@ export function useAirdropMasterForm(account: UiWalletAccount) {
     const { mutateAsync: createAirdropMaster } = useCreateAirdropMaster();
     const { mutateAsync: createAirdropConfig } = useCreateAirdropConfig();
     const { mutateAsync: sendTx } = useTransactionBuilder();
+      const { data: eligibilityResult, isLoading: eligibilityLoading } =
+        useCheckEligibility(account?.address);
 
     
 
@@ -69,12 +73,13 @@ export function useAirdropMasterForm(account: UiWalletAccount) {
     };*/
     // Alternative fix with proper error handling:
 const onSubmit: SubmitHandler<AirdropMasterFormValues> = async (data) => {
+    const proof = eligibilityResult ? getClaimProof(eligibilityResult.proof): null;
         const instructions = await createAirdropMaster({
             treasury: signer.address,
             protocolTreasury: address("6TMmpVof9fGXak2VUgP4X9sXNfPHA7XWyi9ZMUCrHP6A"),
             affiliate: address("6TMmpVof9fGXak2VUgP4X9sXNfPHA7XWyi9ZMUCrHP6A"),
             masterCreator: signer,
-            discountProof: null,
+            discountProof: proof,
             airdropCreationFee: fromUiAmount(data.airdropCreateFee || 0),
             airdropUpdateFee: fromUiAmount(data.airdropUpdateFee || 0),
             bitmapCreationFee: fromUiAmount(data.bitmapCreateFee || 0),

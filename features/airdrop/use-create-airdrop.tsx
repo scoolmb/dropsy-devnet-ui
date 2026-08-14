@@ -3,7 +3,7 @@ import { Instruction } from "@solana/kit";
 import {
   CreateAirdropAsyncInput,
   getCreateAirdropInstructionAsync,
-} from "@dropsy/airdrop";
+} from "@/lib/dropsy";
 
 export function useCreateAirdrop() {
   return useMutation<Instruction[], Error, CreateAirdropAsyncInput>({

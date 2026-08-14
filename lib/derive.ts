@@ -6,7 +6,7 @@ import {
   ProgramDerivedAddressBump,
   ReadonlyUint8Array,
 } from "@solana/kit";
-import { DROPSY_AIRDROP_PROGRAM_ADDRESS } from "@dropsy/airdrop";
+import { DROPSY_AIRDROP_PROGRAM_ADDRESS } from "./dropsy"; 
 import { AFFILIATE_SEED, AIRDROP_CONFIG_SEED, AIRDROP_MASTER_SEED, AIRDROP_SEED, BITMAP_SEED, DROPSY_MASTER_SEED } from "./../lib/constants";
 
 export type DropsyPda = readonly [Address<string>, ProgramDerivedAddressBump];

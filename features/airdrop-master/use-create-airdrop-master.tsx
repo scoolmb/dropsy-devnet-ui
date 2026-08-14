@@ -4,7 +4,7 @@ import { useSolana } from "@/lib/context/solana-provider";
 import {
   getInitializeAirdropMasterInstructionAsync,
   InitializeAirdropMasterAsyncInput,
-} from "@dropsy/airdrop";
+} from "@/lib/dropsy";
 
 export function useCreateAirdropMaster() {
   const { rpc } = useSolana();

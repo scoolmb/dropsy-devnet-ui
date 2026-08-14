@@ -142,7 +142,7 @@ export const getMerkleProof = (
   return proof.map((p) => Array.from(p.data));
 };
 
-function hashLeaf(address: string): Buffer {
+export function hashLeaf(address: string): Buffer {
   const bytes = new TextEncoder().encode(address); 
   return Buffer.from(sha256(bytes));                                       
 }

@@ -3,7 +3,7 @@ import { Instruction } from "@solana/kit";
 import {
   DepositTokensAsyncInput,
   getDepositTokensInstructionAsync,
-} from "@dropsy/airdrop";
+} from "@/lib/dropsy";
 
 export function useDepositAirdropTokens() {
   return useMutation<Instruction[], Error, DepositTokensAsyncInput>({
